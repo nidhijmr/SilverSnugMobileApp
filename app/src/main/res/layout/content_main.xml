@@ -16,7 +16,7 @@ android:layout_marginRight="8dp">
     android:layout_height="65dp"
     android:padding="16dp"
     android:visibility="visible"
-    android:background="#4f86f7">
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/product"

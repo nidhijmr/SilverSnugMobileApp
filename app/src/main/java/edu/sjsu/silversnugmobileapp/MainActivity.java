@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Home Screen");
+        getSupportActionBar().setTitle("DashBoard");
     }
 
     public void goToAddressBook(View view) {
@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToPillBox(View view) {
-//        Intent intent = new Intent(MainActivity.this, AddressBookActivity.class);
-//        MainActivity.this.startActivity(intent);
+       Intent intent = new Intent(MainActivity.this, PillBoxActivity.class);
+        MainActivity.this.startActivity(intent);
     }
 
     public void goToPhotoAlbum(View view) {
-//        Intent intent = new Intent(MainActivity.this, AddressBookActivity.class);
-//        MainActivity.this.startActivity(intent);
+      Intent intent = new Intent(MainActivity.this, PhotoAlbumActivity.class);
+      MainActivity.this.startActivity(intent);
     }
 }
