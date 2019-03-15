@@ -223,5 +223,12 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/ViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToViewProfile"
+        android:text="View Profile" />
+
 </LinearLayout>
 
