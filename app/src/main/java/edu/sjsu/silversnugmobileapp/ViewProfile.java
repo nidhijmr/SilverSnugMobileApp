@@ -1,5 +1,6 @@
 package edu.sjsu.silversnugmobileapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -28,7 +30,8 @@ public class ViewProfile extends AppCompatActivity {
     private Gson gson;
     private RestClient restApiClient;
     TextView userName, emailID, emergContactNumber, firstName, lastName, password, phoneNumber, role;
-
+    Button EditProfile;
+    UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,15 @@ public class ViewProfile extends AppCompatActivity {
         phoneNumber = findViewById(R.id.txtphoneNumberProfile);
         role = findViewById(R.id.txtroleProfile);
 
+        EditProfile = findViewById(R.id.EditProfile);
+        EditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewProfile.this, EditProfile.class);
+                intent.putExtra("userResponse", userResponse);
+                ViewProfile.this.startActivity(intent);
+            }
+        });
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +79,7 @@ public class ViewProfile extends AppCompatActivity {
         restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
-                UserResponse userResponse = gson.fromJson(jsonResponse.toString(), UserResponse.class);
+                userResponse = gson.fromJson(jsonResponse.toString(), UserResponse.class);
                 Log.i("UserResponse", userResponse.toString());
                 userName.setText(userResponse.getUserName());
                 emailID.setText(userResponse.getEmailId());
