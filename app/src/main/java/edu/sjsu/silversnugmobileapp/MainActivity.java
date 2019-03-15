@@ -28,4 +28,9 @@ public class MainActivity extends AppCompatActivity {
       Intent intent = new Intent(MainActivity.this, PhotoAlbumActivity.class);
       MainActivity.this.startActivity(intent);
     }
+
+    public void goToViewProfile(View view) {
+        Intent intent = new Intent(MainActivity.this, ViewProfile.class);
+        MainActivity.this.startActivity(intent);
+    }
 }
