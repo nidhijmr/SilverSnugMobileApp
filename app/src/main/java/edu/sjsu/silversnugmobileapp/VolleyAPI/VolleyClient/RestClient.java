@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RestClient {
@@ -18,7 +19,11 @@ public class RestClient {
 
             @Override
             public void onResponse(JSONObject jsonResponse) {
-                callback.onSuccess(jsonResponse);
+                try {
+                    callback.onSuccess(jsonResponse);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
 
@@ -37,7 +42,11 @@ public class RestClient {
 
             @Override
             public void onResponse(JSONObject jsonResponse) {
-                callback.onSuccess(jsonResponse);
+                try {
+                    callback.onSuccess(jsonResponse);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
 
