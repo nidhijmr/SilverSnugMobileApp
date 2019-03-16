@@ -32,6 +32,7 @@ public class ViewProfile extends AppCompatActivity {
     TextView userName, emailID, emergContactNumber, firstName, lastName, password, phoneNumber, role;
     Button EditProfile;
     UserResponse userResponse;
+    String user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +70,18 @@ public class ViewProfile extends AppCompatActivity {
 
         restApiClient = new RestClient();
         gson = new Gson();
-        getUser();
+
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        user_name =  b.get("userName").toString();
+        getUser(user_name);
 
     }
 
 
-    public void getUser() {
-        String url = "/SilverSnug/User/GetUser?userName=" + "nidhi";
+    public void getUser(String user_name) {
+        Log.i("UserResponse", user_name);
+        String url = "/SilverSnug/User/GetUser?userName=" + user_name;
         restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {

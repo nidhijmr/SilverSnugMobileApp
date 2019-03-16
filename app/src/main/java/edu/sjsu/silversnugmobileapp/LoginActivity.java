@@ -84,9 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Invalid username/credentials!", Toast.LENGTH_SHORT).show();
                     Log.e("error loggin in", "Invalid username/credentials");
                 } else {
+                    Log.i("Success", username.getText().toString());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("userName", username.getText());
                     LoginActivity.this.startActivity(intent);
-                    Log.i("Success", "success");
+
                 }
             }
 
@@ -96,6 +98,11 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("error", message);
             }
         });
+    }
+
+    public void goToSignUp(View view) {
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        LoginActivity.this.startActivity(intent);
     }
 
 }
