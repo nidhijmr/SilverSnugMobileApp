@@ -107,15 +107,15 @@ public class EditProfile extends AppCompatActivity {
         String url = "/SilverSnug/User/EditUser";
         JSONObject userObject = new JSONObject();
         try {
-            userObject.put("userName", userNameEdit.getText().toString());
-            userObject.put("emailId", emailIDEdit.getText().toString());
-            userObject.put("emergencyContactNumber", emergContactNumberEdit.getText().toString());
-            userObject.put("firstName", firstNameEdit.getText().toString());
-            userObject.put("lastName", lastNameEdit.getText().toString());
-            userObject.put("password", passwordEdit.getText().toString());
-            userObject.put("phoneNumber", phoneNumberEdit.getText().toString());
-            userObject.put("profileImage", profileImageProfileEdit.getText().toString());
-            userObject.put("role", roleEdit.getText().toString());
+            userObject.put("userName", userNameEdit.getText());
+            userObject.put("emailId", emailIDEdit.getText());
+            userObject.put("emergencyContactNumber", emergContactNumberEdit.getText());
+            userObject.put("firstName", firstNameEdit.getText());
+            userObject.put("lastName", lastNameEdit.getText());
+            userObject.put("password", passwordEdit.getText());
+            userObject.put("phoneNumber", phoneNumberEdit.getText());
+            userObject.put("profileImage", profileImageProfileEdit.getText());
+            userObject.put("role", roleEdit.getText());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -125,8 +125,9 @@ public class EditProfile extends AppCompatActivity {
             public void onSuccess(JSONObject jsonResponse) {
                 Toast.makeText(EditProfile.this, "User Details saved!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EditProfile.this, ViewProfile.class);
+                intent.putExtra("userName", userNameEdit.getText());
                 EditProfile.this.startActivity(intent);
-                Log.i("Save User Success", userResponse.toString());
+                Log.i("Save User Success", "Save User Success");
             }
 
             @Override
