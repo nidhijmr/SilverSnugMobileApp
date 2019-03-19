@@ -1,38 +1,18 @@
 package edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel;
 
-public class AddressBook {
-    private String userId;
-    private String addressId;
+public class AddressBookCoordinates {
     private String addressName;
     private double latitude;
     private double longitude;
 
-    public AddressBook(){
+    public AddressBookCoordinates(){
 
     }
 
-    public AddressBook(String userId, String addressId, String addressName, double latitude, double longitude) {
-        this.userId = userId;
-        this.addressId = addressId;
+    public AddressBookCoordinates(String addressName, double latitude, double longitude) {
         this.addressName = addressName;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
     }
 
     public String getAddressName() {
@@ -58,5 +38,13 @@ public class AddressBook {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-}
 
+    @Override
+    public String toString() {
+        return "AddressBookCoordinates{" +
+                "addressName='" + addressName + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
+}

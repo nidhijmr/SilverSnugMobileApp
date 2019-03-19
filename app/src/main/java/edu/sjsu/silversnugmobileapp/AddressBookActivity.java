@@ -1,6 +1,7 @@
 package edu.sjsu.silversnugmobileapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -18,12 +20,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.AddressBook;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.AddressBookCoordinates;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
+import edu.sjsu.silversnugmobileapp.utilities.RecyclerTouchListener;
 
 public class AddressBookActivity extends AppCompatActivity {
 
@@ -31,6 +36,7 @@ public class AddressBookActivity extends AppCompatActivity {
     ArrayAdapter<String> mAdapter;
     private RestClient restClient;
     private List<String> labelsList = new ArrayList<>();
+    private List<AddressBookCoordinates> coordinatesList = new ArrayList<>();
     private AddressBookResponse response;
     private Gson gson;
     private EditText addressBookEditText;
@@ -63,7 +69,6 @@ public class AddressBookActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        loadAddressBookList();
     }
 
     public void loadAddressBookList() {
@@ -75,11 +80,40 @@ public class AddressBookActivity extends AppCompatActivity {
                 Log.i("AddressBookActivity", response.toString());
 
                 List<AddressBook> responseList = response.getAddressBooks();
-                for (AddressBook record : responseList)
+                for (AddressBook record : responseList) {
                     labelsList.add(record.getAddressName());
-
+                    coordinatesList.add(new AddressBookCoordinates(record.getAddressName(),record.getLatitude(),record.getLongitude()));
+                }
                 final RVAdapter adapter = new RVAdapter(labelsList);
                 rv.setAdapter(adapter);
+
+                rv.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rv, new RecyclerTouchListener.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        double latitude = 0;
+                        double longitude = 0;
+                        String addressSelected = labelsList.get(position);
+
+                        //Call intent to show navigation on Google maps
+                        for(AddressBookCoordinates entry:coordinatesList)
+                        {
+                            if(entry.getAddressName() == addressSelected) {
+                                latitude = entry.getLatitude();
+                                longitude = entry.getLongitude();
+                            }
+                        }
+//                        Toast.makeText(getApplicationContext(),  position+ " selected!", Toast.LENGTH_SHORT).show();
+
+                        String location = latitude + "," + longitude;
+                        Uri gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr="+location);
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent);
+                    }
+                    @Override
+                    public void onLongClick(View view, final int position) {
+                    }
+                }));
             }
 
             @Override
@@ -89,14 +123,9 @@ public class AddressBookActivity extends AppCompatActivity {
         });
     }
 
-    public void addAddress() {
+    public void addAddress(View view) {
     }
 
     public void removeAddress(String addressName) {
-    }
-
-    public void openMaps(View view) {
-//        Intent intent = new Intent(AddressBookActivity.this, MapsActivity.class);
-//        AddressBookActivity.this.startActivity(intent);
     }
 }

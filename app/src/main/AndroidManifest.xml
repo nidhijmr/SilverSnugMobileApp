@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AddressBookMapActivity"></activity>
         <activity
             android:name=".AddressBookActivity"
             android:label="@string/title_activity_address_book" />
@@ -30,7 +31,7 @@
         <activity
             android:name=".PillBoxActivity"
             android:label="@string/title_activity_pill_box"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
