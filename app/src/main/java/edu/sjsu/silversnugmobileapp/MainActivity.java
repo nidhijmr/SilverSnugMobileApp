@@ -48,4 +48,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("userName", user_name);
         MainActivity.this.startActivity(intent);
     }
+
+    public void goToTaskSchedule (View view) {
+
+        Intent intent = getPackageManager().getLaunchIntentForPackage("me.neelmehta.hack4health");
+        startActivity(intent);
+    }
 }
+

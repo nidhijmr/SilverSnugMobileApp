@@ -16,7 +16,7 @@ android:layout_marginRight="8dp">
     android:layout_height="65dp"
     android:padding="16dp"
     android:visibility="visible"
-    android:background="@color/colorAccent">
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/product"
@@ -27,7 +27,7 @@ android:layout_marginRight="8dp">
         android:fontFamily="serif"
         android:text=""
         android:textStyle="bold"
-        android:textColor="#FEFCFF"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

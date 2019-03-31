@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PillBoxActivity"
-    tools:showIn="@layout/activity_pill_box">
+    tools:context=".AddPillBox"
+    tools:showIn="@layout/activity_add_pill_box">
+
 
 </android.support.constraint.ConstraintLayout>
