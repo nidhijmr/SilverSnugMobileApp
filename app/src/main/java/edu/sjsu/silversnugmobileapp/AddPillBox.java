@@ -6,8 +6,27 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.UserRequest;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class AddPillBox extends AppCompatActivity {
+
+    private static ObjectMapper mapper = new ObjectMapper();
+    private Gson gson;
+    private RestClient restApiClient;
+    PillBoxResponse pillBoxResponse;
+    PillBoxRequest pillBoxRequest;
+    Button Add, Cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +43,9 @@ public class AddPillBox extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
+
+
 
 }

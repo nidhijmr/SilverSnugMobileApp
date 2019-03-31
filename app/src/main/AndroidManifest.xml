@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.sjsu.silversnugmobileapp">
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -16,11 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddressBookMapActivity"></activity>
+        <activity android:name=".AddressBookMapActivity" />
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
@@ -53,6 +54,10 @@
             android:name=".PillBoxActivity"
             android:label="@string/title_activity_pill_box"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddPillBox"
+            android:label="@string/title_activity_add_pill_box"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
