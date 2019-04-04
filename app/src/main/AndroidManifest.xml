@@ -57,7 +57,11 @@
         <activity
             android:name=".AddPillBox"
             android:label="@string/title_activity_add_pill_box"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditPill"
+            android:label="@string/title_activity_edit_pill"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
