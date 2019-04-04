@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         if(id==R.id.myprofile)
         {
             Intent intent = new Intent(MainActivity.this, ViewProfile.class);
-            intent.putExtra("userName", user_name);
+            intent.putExtra("userResponse", userResponse);
             MainActivity.this.startActivity(intent);
         }
 
