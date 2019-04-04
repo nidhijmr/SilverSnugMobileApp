@@ -88,6 +88,7 @@ public class EditProfile extends AppCompatActivity {
 
     public void cancelEdit(View view) {
         Intent intent = new Intent(EditProfile.this, ViewProfile.class);
+        intent.putExtra("userResponse", userResponse);
         EditProfile.this.startActivity(intent);
     }
 
@@ -125,7 +126,7 @@ public class EditProfile extends AppCompatActivity {
             public void onSuccess(JSONObject jsonResponse) {
                 Toast.makeText(EditProfile.this, "User Details saved!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EditProfile.this, ViewProfile.class);
-                intent.putExtra("userName", userNameEdit.getText());
+                intent.putExtra("userResponse", userResponse);
                 EditProfile.this.startActivity(intent);
                 Log.i("Save User Success", "Save User Success");
             }
