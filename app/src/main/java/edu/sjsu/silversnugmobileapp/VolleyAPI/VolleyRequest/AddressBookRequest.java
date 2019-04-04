@@ -7,15 +7,15 @@ public class AddressBookRequest implements Serializable {
     private String userId;
     private String addressId;
     private String addressName;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
     public AddressBookRequest()
     {
 
     }
 
-    public AddressBookRequest(String userId, String addressId, String addressName, String latitude, String longitude) {
+    public AddressBookRequest(String userId, String addressId, String addressName, double latitude, double longitude) {
         this.userId = userId;
         this.addressId = addressId;
         this.addressName = addressName;
@@ -47,19 +47,19 @@ public class AddressBookRequest implements Serializable {
         this.addressName = addressName;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

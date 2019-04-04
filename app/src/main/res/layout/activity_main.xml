@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Address Book"
+                    android:textColor="#E57373"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -62,7 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimary"
                 android:onClick="goToPhotoAlbum"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -76,6 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#E57373"
                     android:layout_marginTop="10dp"
                     android:text="Photo Album"
 
@@ -104,8 +106,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:onClick="goToTaskSchedule"
                 android:gravity="center"
-                android:background="#FFA726"
                 android:orientation="vertical">
 
                 <ImageView
@@ -119,6 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="#E57373"
                     android:text="Tasks"
                     android:textStyle="bold" />
 
@@ -148,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="#F4511E"
+                android:background="@color/colorPrimary"
                 android:onClick="goToPillBox"
                 android:orientation="vertical">
 
@@ -164,6 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="#E57373"
                     android:text="Pill Schedule"
                     android:textStyle="bold" />
 
@@ -195,6 +200,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#E57373"
                     android:layout_marginTop="10dp"
                     android:text="Current Address"
                     android:textStyle="bold" />
@@ -218,10 +224,17 @@
             android:layout_height="40dp"
             android:background="@color/colorPrimary"
             android:text="SOS call"
-            android:textColor="#FFF"
+            android:textColor="#E57373"
             android:textSize="24dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/ViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToViewProfile"
+        android:text="View Profile" />
 
 </LinearLayout>
 
