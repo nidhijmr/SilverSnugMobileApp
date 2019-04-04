@@ -22,7 +22,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryRespons
 public class GetImageActivity extends AppCompatActivity {
 
     private ArrayList<Bitmap> images;
-   // private ArrayList<ImageDetails> imageDetails;
+    private ArrayList<ImageDetails> imageDetails;
     private int columnWidth=500;
     Button get;
    // ImageGridViewAdapter adapter;
@@ -56,6 +56,9 @@ public class GetImageActivity extends AppCompatActivity {
 
                 List<PhotoGallery> responseList = response.getPhotogallery();
                 for (PhotoGallery record : responseList) {
+                    String name = record.getPhotoName();
+                    String contactNumber = record.getContactNumber();
+                    imageDetails.add(new ImageDetails(name,contactNumber));
 
                 }
             }

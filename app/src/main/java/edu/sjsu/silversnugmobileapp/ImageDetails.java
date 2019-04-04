@@ -4,14 +4,15 @@ public class ImageDetails {
 
     private int id;
     private String name;
-    private String relationship;
+    //private String relationship;
+    private String contactNumber;
     private byte[] image;
 
-    public ImageDetails(String name, String relationship, byte[] image)
+    public ImageDetails(String name, String contactNumber ) //, byte[] image)
     {
         this.name= name;
-        this.relationship = relationship;
-        this.image = image;
+        this.contactNumber = contactNumber;
+       // this.image = image;
         // this.id=id;
     }
 
@@ -39,19 +40,19 @@ public class ImageDetails {
 
     }
 
-    public String getRelationship()
+    public String getContactNumber()
     {
-        return relationship;
+        return contactNumber;
 
     }
 
-    public void setRelationship()
+    public void setContactNumber()
     {
-        this.relationship=relationship;
+        this.contactNumber=contactNumber;
 
     }
 
-    public byte[] getImage()
+   /* public byte[] getImage()
     {
         return image;
 
@@ -61,6 +62,6 @@ public class ImageDetails {
     {
         this.image=image;
 
-    }
+    }*/
 
 }

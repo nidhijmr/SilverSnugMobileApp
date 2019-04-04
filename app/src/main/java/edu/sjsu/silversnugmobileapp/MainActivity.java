@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -24,11 +25,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     boolean greaterThan = false;
     boolean callFlag=true;
     GPSLocation gps;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
-
-public class MainActivity extends AppCompatActivity {
-
     String user_name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
