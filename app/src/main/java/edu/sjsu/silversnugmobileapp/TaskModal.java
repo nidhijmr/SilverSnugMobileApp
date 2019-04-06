@@ -3,10 +3,6 @@ package edu.sjsu.silversnugmobileapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by rahuldominic on 05/11/16.
- */
-
 public class TaskModal implements Parcelable {
     public static final Creator<TaskModal> CREATOR = new Creator<TaskModal>() {
         @Override
