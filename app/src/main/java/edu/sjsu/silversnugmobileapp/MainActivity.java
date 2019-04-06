@@ -102,16 +102,21 @@ public class MainActivity extends AppCompatActivity {
       MainActivity.this.startActivity(intent);
     }
 
-    public void goToViewProfile(View view) {
+    public void goToVewProfile(View view) {
         Intent intent = new Intent(MainActivity.this, ViewProfile.class);
         intent.putExtra("userResponse", userResponse);
         MainActivity.this.startActivity(intent);
     }
 
-    public void goToTaskSchedule (View view) {
+    public void goToTaskSchedule(View view) {
+        Intent intent = new Intent(MainActivity.this, MainActivity4.class);
+        intent.putExtra("userResponse", userResponse);
+        MainActivity.this.startActivity(intent);
+    }
+    /*public void goToTaskSchedule (View view) {
 
         Intent intent = getPackageManager().getLaunchIntentForPackage("me.neelmehta.hack4health");
         startActivity(intent);
-    }
+    }*/
 }
 
