@@ -104,7 +104,7 @@ public class PillBoxActivity extends AppCompatActivity {
     }
 
     public void loadPillBoxList() {
-        String url = "/SilverSnug/PillBox/getPill?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502";
+        String url = "/SilverSnug/PillBox/getPill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303";
         restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
@@ -196,7 +196,7 @@ public class PillBoxActivity extends AppCompatActivity {
             Log.e("PillBoxActivity", "Pill notes cannot be empty");
             return;
         }
-        request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
+        request.setUserId("7649229d-1483-4b9e-b9a8-d79470f46303");
         try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
@@ -221,7 +221,7 @@ public class PillBoxActivity extends AppCompatActivity {
 
     public void removePill(String medicineName){
 
-        String url = "/SilverSnug/PillBox/deletePill" + "680cdb82-c044-4dd1-ae84-1a15e54ab502" +"&medicineName="+medicineName;
+        String url = "/SilverSnug/PillBox/deletePill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303" +"&medicineName="+medicineName;
         PillBoxRequest request = new PillBoxRequest();
         try{
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
@@ -238,8 +238,10 @@ public class PillBoxActivity extends AppCompatActivity {
                     Log.i("PillBoxActivity", message);
                 }
             });
+
         } catch (JSONException e) {
-            Log.e("PillBoxActivity", e.getMessage());
+            String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
+            Log.e("PillBoxActivity", err);
         }
 
     }
@@ -251,6 +253,8 @@ public class PillBoxActivity extends AppCompatActivity {
         startActivity(intent);
 
 }
+
+
 }
 
 
