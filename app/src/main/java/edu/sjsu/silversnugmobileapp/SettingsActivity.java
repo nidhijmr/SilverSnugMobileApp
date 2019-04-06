@@ -15,9 +15,6 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-/**
- * Created by rahuldominic on 05/11/16.
- */
 
 public class SettingsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
