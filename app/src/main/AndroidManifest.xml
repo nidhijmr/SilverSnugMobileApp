@@ -71,6 +71,13 @@
             android:name=".AddPillBox"
             android:label="@string/title_activity_add_pill_box"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".InsertImageActivity"
+            android:label= "@string/title_activity_insert_image"></activity>
+        <activity
+            android:name=".GetImageActivity"
+            android:label="@string/title_activity_get_image"></activity>
+
     </application>
 
 </manifest>

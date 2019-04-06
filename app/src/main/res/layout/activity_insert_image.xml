@@ -62,8 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView4"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:ems="10" />
 
     <EditText
         android:id="@+id/editText5"
@@ -80,7 +79,7 @@
         android:layout_below="@+id/editText4"
         android:layout_marginTop="100dp"
         android:layout_toEndOf="@+id/textView3"
-        android:text="Choose Picture"
+        android:text="Select Photo"
         android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="#FFFF"
@@ -88,5 +87,18 @@
         android:paddingRight="10dp"
         android:background="@color/colorAccent"/>
 
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_choosePic"
+        android:text="Save"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="#FFFF"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/colorAccent"
+        />
 
 </RelativeLayout>

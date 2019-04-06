@@ -7,19 +7,21 @@ public class PhotoGallery {
     private String contactNumber;
     private String photoName;
     private String photo;
+    private String relationship;
 
     public PhotoGallery()
     {
 
     }
 
-    public PhotoGallery(String photoId, String userName, String contactNumber, String photoName, String photo)
+    public PhotoGallery(String photoId, String userName, String contactNumber, String photoName, String photo, String relationship)
     {
         this.photoId = photoId;
         this.userName = userName;
         this.contactNumber = contactNumber;
         this.photoName = photoName;
         this.photo = photo;
+        this.relationship = relationship;
     }
 
     public String getPhotoId() {
@@ -60,5 +62,13 @@ public class PhotoGallery {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
     }
 }

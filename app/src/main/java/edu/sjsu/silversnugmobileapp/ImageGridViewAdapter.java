@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
@@ -41,7 +41,7 @@ public class ImageGridViewAdapter extends BaseAdapter {
 
     private class ViewHolder {
         ImageView imageView;
-        TextView txtname, txtrelation;
+        TextView txtname, txtrelation, txtcontactnumber;
 
     }
 
@@ -55,12 +55,12 @@ public class ImageGridViewAdapter extends BaseAdapter {
             row = convertView;
         }
 
-
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
         row = inflater.inflate(layout, null);
 
         holder.txtname = (TextView) row.findViewById(R.id.txtName);
         holder.txtrelation = (TextView) row.findViewById(R.id.txtRelation);
+        holder.txtcontactnumber = (TextView) row.findViewById(R.id.txtContactNumber);
         holder.imageView = (ImageView) row.findViewById(R.id.imageView);
         row.setTag(holder);
 
@@ -70,9 +70,13 @@ public class ImageGridViewAdapter extends BaseAdapter {
 
         holder.txtname.setText(imageDetails.getName());
         holder.txtrelation.setText(imageDetails.getRelationship());
-        byte[] image = imageDetails.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        holder.imageView.setImageBitmap(bitmap);
+        holder.txtcontactnumber.setText(imageDetails.getContactNumber());
+        Picasso.get().load(imageDetails.getImagePath()).into(holder.imageView);
+
+
+        //byte[] image = imageDetails.getImage();
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+       // holder.imageView.setImageBitmap(bitmap);
 
         return row;
     }

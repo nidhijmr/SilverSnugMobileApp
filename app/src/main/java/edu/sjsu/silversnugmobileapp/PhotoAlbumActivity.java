@@ -34,14 +34,14 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
         insert.setOnClickListener(this);
         get.setOnClickListener((View.OnClickListener) this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        }); */
 
         get.setOnClickListener(new View.OnClickListener() {
             @Override

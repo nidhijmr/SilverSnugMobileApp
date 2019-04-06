@@ -4,27 +4,16 @@ public class ImageDetails {
 
     private int id;
     private String name;
-    //private String relationship;
+    private String relationship;
     private String contactNumber;
-    private byte[] image;
+    private String imagePath;
 
-    public ImageDetails(String name, String contactNumber ) //, byte[] image)
+    public ImageDetails(String name, String contactNumber, String relationship, String imagePath)
     {
         this.name= name;
         this.contactNumber = contactNumber;
-       // this.image = image;
-        // this.id=id;
-    }
-
-    public int getId()
-    {
-        return id;
-
-    }
-
-    public void setId()
-    {
-        this.id=id;
+        this.relationship = relationship;
+        this.imagePath = imagePath;
 
     }
 
@@ -52,16 +41,19 @@ public class ImageDetails {
 
     }
 
-   /* public byte[] getImage()
-    {
-        return image;
-
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage()
-    {
-        this.image=image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
-    }*/
+    public String getRelationship() {
+        return relationship;
+    }
 
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
 }

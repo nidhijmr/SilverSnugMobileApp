@@ -20,4 +20,6 @@
     <string name="title_activity_edit_profile">EditProfile</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_add_pill_box">AddPillBox</string>
+    <string name="title_activity_insert_image">InsertImageActivity</string>
+    <string name="title_activity_get_image">GetImageActivity</string>
 </resources>

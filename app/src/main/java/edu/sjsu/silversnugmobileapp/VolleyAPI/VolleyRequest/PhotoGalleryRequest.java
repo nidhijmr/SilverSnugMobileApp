@@ -10,19 +10,21 @@ public class PhotoGalleryRequest implements Serializable{
     private String contactNumber;
     private String photoName;
     private String photo;
+    private String relationship;
 
     public PhotoGalleryRequest()
     {
 
     }
 
-    public PhotoGalleryRequest(String photoId, String userId, String contactNumber, String photoName, String photo)
+    public PhotoGalleryRequest(String photoId, String userId, String contactNumber, String photoName, String photo, String relationship)
     {
         this.photoId = photoId;
         this.userId = userId;
         this.contactNumber = contactNumber;
         this.photoName = photoName;
         this.photo = photo;
+        this.relationship = relationship;
     }
 
     public String getPhotoId() {
@@ -65,6 +67,14 @@ public class PhotoGalleryRequest implements Serializable{
         this.photo = photo;
     }
 
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
     @Override
     public String toString() {
         return "PhotoGalleryRequest{" +
@@ -73,6 +83,7 @@ public class PhotoGalleryRequest implements Serializable{
                 ", photo='" + photo + '\'' +
                 ", photoName='" + photoName + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
+                ", relationship='" + relationship + '\'' +
                 '}';
     }
 
