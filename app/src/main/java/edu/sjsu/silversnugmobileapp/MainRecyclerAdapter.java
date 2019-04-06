@@ -14,9 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by rahuldominic on 05/11/16.
- */
+
 public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int[] colors = {Color.parseColor("#46B0EB"), Color.parseColor("#673AB7"),
             Color.parseColor("#C2185B"), Color.parseColor("#E64A19"), Color.parseColor("#795548"),
