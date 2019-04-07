@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
+import edu.sjsu.silversnugmobileapp.backgroundTasks.panicVoiceDetection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("DashBoard");
+        Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
+        getApplicationContext().startService(panicVcDetect);
 
         Intent i = getIntent();
         Bundle b =  i.getExtras();
