@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
@@ -71,7 +71,7 @@ public class ImageGridViewAdapter extends BaseAdapter {
         holder.txtname.setText(imageDetails.getName());
         holder.txtrelation.setText(imageDetails.getRelationship());
         holder.txtcontactnumber.setText(imageDetails.getContactNumber());
-        Picasso.get().load(imageDetails.getImagePath()).into(holder.imageView);
+        //Picasso.get().load(imageDetails.getImagePath()).into(holder.imageView);
 
 
         //byte[] image = imageDetails.getImage();

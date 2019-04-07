@@ -1,6 +1,7 @@
 package edu.sjsu.silversnugmobileapp;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -228,10 +231,13 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             clientConfig.setMaxErrorRetry(0);
             clientConfig.setSocketTimeout(60000);
 
-            BasicAWSCredentials credentials = new BasicAWSCredentials
-                    (AWS_KEY, AWS_SECRET);// Add the access key and access key id to the  credentials
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    getApplicationContext(),
+                    "", // Identity pool ID
+                    Regions.US_EAST_1 // Region
+            );
 
-            s3Client = new AmazonS3Client(credentials, clientConfig);
+            s3Client = new AmazonS3Client(credentialsProvider, clientConfig);
             s3Client.setRegion(Region.getRegion(Regions.US_EAST_1));
 
         }
@@ -239,7 +245,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
         FileInputStream stream = null;
 
         try {
-
             stream = new FileInputStream(file);
 
             ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -256,9 +261,9 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             String fileName = UUID.randomUUID().toString();
 
-           PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "new/" + fileName + "." + extenstion, stream, objectMetadata)
+           PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "new/" + fileName + "." + extenstion, stream, objectMetadata);
 
-                    .withCannedAcl(CannedAccessControlList.PublicRead);
+                    //.withCannedAcl(CannedAccessControlList.PublicRead);
 
             // above line is  making the request to the aws  server for the specific place to upload the image were aws_bucket is the main folder  name and inside that is the profiles folder and there the file will be get uploaded
 
