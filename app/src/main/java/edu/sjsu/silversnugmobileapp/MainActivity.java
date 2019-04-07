@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("userResponse: ", userResponse.toString());
 
         //user_name = i.getStringExtra("userName");
+
+        Intent intent=new Intent(MainActivity.this,LocationTracker.class);
+        intent.putExtra("userName", userResponse.getUserName());
+        getApplicationContext().startService(intent);
     }
 
     @Override
@@ -105,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
     public void goToViewProfile(View view) {
         Intent intent = new Intent(MainActivity.this, ViewProfile.class);
         intent.putExtra("userResponse", userResponse);
+        MainActivity.this.startActivity(intent);
+    }
+
+    public void goToCurrentAddress(View view) {
+        Intent intent = new Intent(MainActivity.this, CurrentAddress.class);
         MainActivity.this.startActivity(intent);
     }
 
