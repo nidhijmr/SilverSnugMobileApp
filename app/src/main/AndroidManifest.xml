@@ -22,17 +22,12 @@
             android:enabled="true"
             android:exported="true"></service>
 
-
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
         <activity android:name=".AddressBookMapActivity"></activity>
+        <activity android:name=".AddressBookMapActivity" />
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".AddressBookActivity"
-            android:label="@string/title_activity_address_book"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity  android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile"
@@ -51,6 +46,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewTaskActivity" />
+        <activity
+            android:name=".AddressBookActivity"
+            android:label="@string/title_activity_address_book" />
         <activity
             android:name=".MainActivity"
             android:label="MainActivity" />
@@ -62,6 +61,19 @@
             android:name=".PillBoxActivity"
             android:label="@string/title_activity_pill_box"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddPillBox"
+            android:label="@string/title_activity_add_pill_box"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditPill"
+            android:label="@string/title_activity_edit_pill"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity4"
+            android:label="@string/title_activity_main4"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
