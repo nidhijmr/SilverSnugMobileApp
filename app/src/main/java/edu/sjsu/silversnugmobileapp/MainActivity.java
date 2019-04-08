@@ -117,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(intent);
     }
 
-    public void goToTaskSchedule (View view) {
-
     public void goToTaskSchedule(View view) {
         Intent intent = new Intent(MainActivity.this, MainActivity4.class);
         intent.putExtra("userResponse", userResponse);
