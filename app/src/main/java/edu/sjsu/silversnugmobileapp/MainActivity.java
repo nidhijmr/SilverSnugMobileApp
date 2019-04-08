@@ -22,15 +22,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("DashBoard");
-        Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
-        panicVcDetect.putExtra("userName", userResponse.getUserName());
-        getApplicationContext().startService(panicVcDetect);
+
 
         Intent i = getIntent();
         Bundle b =  i.getExtras();
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
-
+        Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
+        panicVcDetect.putExtra("userName", userResponse.getUserName());
+        getApplicationContext().startService(panicVcDetect);
         //user_name = i.getStringExtra("userName");
 
         Intent intent=new Intent(MainActivity.this,LocationTracker.class);
