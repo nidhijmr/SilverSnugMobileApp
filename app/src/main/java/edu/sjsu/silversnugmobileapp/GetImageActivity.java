@@ -71,26 +71,6 @@ public class GetImageActivity extends AppCompatActivity {
                 PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                 Log.i("PhotoGalleryActivity", response.toString());
 
-
-                AmazonS3 s3Client = null;
-                if (s3Client == null) {
-                    ClientConfiguration clientConfig = new ClientConfiguration();
-                    clientConfig.setProtocol(Protocol.HTTP);
-                    clientConfig.setMaxErrorRetry(0);
-                    clientConfig.setSocketTimeout(60000);
-
-                    CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                            getApplicationContext(),
-                            "us-east-1:d91f3bc5-0ee7-43d2-ad64-7af1d14f6c03", // Identity pool ID
-                            Regions.US_EAST_1 // Region
-                    );
-
-                    s3Client = new AmazonS3Client(credentialsProvider, clientConfig);
-                    s3Client.setRegion(Region.getRegion(Regions.US_EAST_1));
-
-
-                }
-
                 List<PhotoGallery> responseList = response.getPhotos();
                 imageDetails = new ArrayList<>();
                 System.out.println("Response: " + responseList);
