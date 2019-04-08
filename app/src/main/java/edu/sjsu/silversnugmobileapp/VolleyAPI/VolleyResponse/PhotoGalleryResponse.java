@@ -7,7 +7,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PhotoGallery;
 public class PhotoGalleryResponse extends GenericResponse{
 
     private static final long serialVersionUID = 3543385351755692064L;
-    private List<PhotoGallery> photogallery;
+    private List<PhotoGallery> photos;
 
 
     public PhotoGalleryResponse()
@@ -15,26 +15,24 @@ public class PhotoGalleryResponse extends GenericResponse{
 
     }
 
-    public PhotoGalleryResponse(List<PhotoGallery> photogallery)
+    public PhotoGalleryResponse(List<PhotoGallery> photos)
     {
         super();
-        this.photogallery = photogallery;
+        this.photos = photos;
     }
 
-    public List<PhotoGallery> getPhotogallery() {
-        return photogallery;
+    public List<PhotoGallery> getPhotos() {
+        return photos;
     }
 
-    public void setPhotogallery(List<PhotoGallery> photogallery) {
-        this.photogallery = photogallery;
+    public void setPhotos(List<PhotoGallery> photos) {
+        this.photos = photos;
     }
 
     @Override
     public String toString() {
         return "PhotoGalleryResponse{" +
-                "photogallery=" + photogallery +
-                ", status='" + status + '\'' +
-                ", message='" + message + '\'' +
+                "photos=" + photos  +
                 '}';
     }
 }

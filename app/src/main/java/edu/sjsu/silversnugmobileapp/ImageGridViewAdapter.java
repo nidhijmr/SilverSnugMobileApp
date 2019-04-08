@@ -20,6 +20,7 @@ public class ImageGridViewAdapter extends BaseAdapter {
     private ArrayList<ImageDetails> imageList;
     private int imageWidth;
     private int layout;
+    private static final String AWS_BUCKET = "silversnugphotos";
 
     public ImageGridViewAdapter(Context c, int layout, ArrayList<ImageDetails> imgList) {
         this.mContext = c;
@@ -65,18 +66,11 @@ public class ImageGridViewAdapter extends BaseAdapter {
         row.setTag(holder);
 
         ImageDetails imageDetails = imageList.get(position);
-        System.out.println("######## --- " + imageList.get(position));
-        System.out.println("######## --- " + imageDetails.getName());
 
         holder.txtname.setText(imageDetails.getName());
         holder.txtrelation.setText(imageDetails.getRelationship());
         holder.txtcontactnumber.setText(imageDetails.getContactNumber());
         Picasso.get().load(imageDetails.getImagePath()).into(holder.imageView);
-
-
-        //byte[] image = imageDetails.getImage();
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-       // holder.imageView.setImageBitmap(bitmap);
 
         return row;
     }

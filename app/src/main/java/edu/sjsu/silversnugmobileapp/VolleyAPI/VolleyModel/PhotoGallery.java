@@ -14,7 +14,7 @@ public class PhotoGallery {
 
     }
 
-    public PhotoGallery(String photoId, String userName, String contactNumber, String photoName, String photo, String relationship)
+    public PhotoGallery( String photoId, String userName, String contactNumber, String photoName, String photo, String relationship)
     {
         this.photoId = photoId;
         this.userName = userName;

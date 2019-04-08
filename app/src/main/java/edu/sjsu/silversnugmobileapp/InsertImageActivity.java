@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -51,24 +53,25 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
     Button choosePic, save;
     TextView name, relation, contactNumber;
     EditText ename, erelation, econtactNumber;
-    private static final int PICK_IMAGE=100;
-    private static final int RESULT_OK= -1;
+    private static final int PICK_IMAGE = 100;
+    private static final int RESULT_OK = -1;
     String sname, srelation, scontactNumber;
     String username;
     private Gson gson;
     private RestClient restApiClient;
-    private static final String AWS_KEY= "";
+    private static final String AWS_KEY = "";
     private static final String AWS_SECRET = "";
     private static final String AWS_BUCKET = "silversnugphotos";
     ImageView mImage;
     String imagePath;
+    TransferUtility transferUtility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_image);
         choosePic = (Button) findViewById(R.id.button_choosePic);
-        save= (Button)findViewById(R.id.button_save);
+        save = (Button) findViewById(R.id.button_save);
         ename = (EditText) findViewById(R.id.editText3);
         erelation = (EditText) findViewById(R.id.editText4);
         econtactNumber = (EditText) findViewById(R.id.editText5);
@@ -100,40 +103,33 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         System.out.println("Select Picture button clicked");
-        Intent intent= new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,PICK_IMAGE);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE);
     }
 
-    public void addPhoto()
-    {
+    public void addPhoto() {
         String url = "/SilverSnug/PhotoGallery/addPhoto";
         final PhotoGalleryRequest request = new PhotoGalleryRequest();
 
-        if(!(ename.getText().equals(null)))
-        {
+        if (!(ename.getText().equals(null))) {
             request.setPhotoName(ename.getText().toString());
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Name cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("PhotoGalleryActivity", "Name cannot be empty");
             return;
         }
 
-        if(!(erelation.getText().equals(null)))
-        {
+        if (!(erelation.getText().equals(null))) {
             request.setRelationship(erelation.getText().toString());
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Relationship cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("PhotoGalleryActivity", "Relationship cannot be empty");
             return;
         }
 
-        if(!(econtactNumber.getText().equals(null)))
-        {
+        if (!(econtactNumber.getText().equals(null))) {
             request.setContactNumber(econtactNumber.getText().toString());
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Contact Number cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("PhotoGalleryActivity", "Contact Number cannot be empty");
             return;
@@ -143,24 +139,20 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
         System.out.println("ImagePath=" + imagePath);
 
-       if(!(imagePath.equals(null)))
-        {
+        if (!(imagePath.equals(null))) {
             request.setPhoto(imagePath);
-       }
-       else
-        {
-         Toast.makeText(getApplicationContext(), "Photo cannot be empty", Toast.LENGTH_LONG).show();
-         Log.e("PhotoGalleryActivity", "Photo cannot be empty");
-           return;
-       }
-      /*  try {
+        } else {
+            Toast.makeText(getApplicationContext(), "Photo cannot be empty", Toast.LENGTH_LONG).show();
+            Log.e("PhotoGalleryActivity", "Photo cannot be empty");
+            return;
+        }
+        try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
                     PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                     Log.i("PhotoGalleryActivity", response.toString());
-                    //loadPillBoxList();
                 }
 
                 @Override
@@ -171,7 +163,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
         } catch (JSONException e) {
             Log.e("PhotoGalleryActivity", e.getMessage());
-        }*/
+        }
     }
 
 
@@ -188,7 +180,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             final String picturePath = c.getString(columnIndex);
             c.close();
             Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-           // mImage.setImageBitmap(thumbnail);
+            // mImage.setImageBitmap(thumbnail);
             Thread thread = new Thread(new Runnable() {
 
                 @Override
@@ -206,21 +198,19 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             thread.start();
         }
 
-//            sname = ename.getText().toString();
-//            srelation = erelation.getText().toString();
-//            scontactNumber= econtactNumber.getText().toString();
-        }
+    }
 
 
-    private void uploadImageToAWS(String selectedImagePath){
+    private void uploadImageToAWS(String selectedImagePath) {
 
         if (selectedImagePath == null) {
             Toast.makeText(this, "Could not find the filepath of the selected file", Toast.LENGTH_LONG).show();
-                    // to make sure that file is not emapty or null
             return;
         }
 
         File file = new File(selectedImagePath);
+
+
         AmazonS3 s3Client = null;
         if (s3Client == null) {
             ClientConfiguration clientConfig = new ClientConfiguration();
@@ -228,10 +218,16 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             clientConfig.setMaxErrorRetry(0);
             clientConfig.setSocketTimeout(60000);
 
-            BasicAWSCredentials credentials = new BasicAWSCredentials
-                    (AWS_KEY, AWS_SECRET);// Add the access key and access key id to the  credentials
+            CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                    getApplicationContext(),
+                    "", // Identity pool ID
+                    Regions.US_EAST_1 // Region
+            );
 
-            s3Client = new AmazonS3Client(credentials, clientConfig);
+           /* BasicAWSCredentials credentials = new BasicAWSCredentials
+                    (AWS_KEY, AWS_SECRET);// Add the access key and access key id to the  credentials */
+
+            s3Client = new AmazonS3Client(credentialsProvider, clientConfig);
             s3Client.setRegion(Region.getRegion(Regions.US_EAST_1));
 
         }
@@ -256,22 +252,17 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             String fileName = UUID.randomUUID().toString();
 
-           PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "new/" + fileName + "." + extenstion, stream, objectMetadata)
-
-                    .withCannedAcl(CannedAccessControlList.PublicRead);
-
-            // above line is  making the request to the aws  server for the specific place to upload the image were aws_bucket is the main folder  name and inside that is the profiles folder and there the file will be get uploaded
+            PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "photos/" + fileName + "." + extenstion, stream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
 
             PutObjectResult result = s3Client.putObject(putObjectRequest);
-            // this will  add the image to the specified path in the aws bucket.
+
+            imagePath = "https://s3.amazonaws.com/silversnugphotos/photos/" + fileName;
 
 
             runOnUiThread(new Runnable() {
 
                 public void run() {
 
-                    //selectButton.setText("success");
-                    //pd.dismiss();
                 }
 
             });
@@ -293,40 +284,8 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             e.printStackTrace();
 
-//            Log.e("ERROR",e.getMessage());
-
         }
 
     }
-
-   /* private String getRealPathFromURI(String contentURI) {
-        Uri contentUri = Uri.parse(contentURI);
-        Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
-        if (cursor == null) {
-            return contentUri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(index);
-        }
-
-    } */
-
-    /*public String getPath(Uri uri)
-    {
-        if(uri == null) {
-            return null;
-        }
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri,projection,null,null,null);
-        if(cursor!=null)
-        {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        }
-        return uri.getPath();
-
-    }*/
 
 }
