@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("DashBoard");
         Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
+        panicVcDetect.putExtra("userName", userResponse.getUserName());
         getApplicationContext().startService(panicVcDetect);
 
         Intent i = getIntent();

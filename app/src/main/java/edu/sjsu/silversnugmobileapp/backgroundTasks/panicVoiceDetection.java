@@ -9,6 +9,17 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.util.Log;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class panicVoiceDetection extends Service {
     private Handler handler;
@@ -22,19 +33,36 @@ public class panicVoiceDetection extends Service {
     PanicVoiceDetectionModel model = null;
     private float[][] inputData =  new float[16000][1];
     private float[][] outputData = new float[1][3];
+
+    private RestClient restApiClient;
+    private String userName = "";
+
     public panicVoiceDetection() {
         model = PanicVoiceDetectionModel.getInstance();
     }
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        N = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT);
 
+        try {
+            userName = intent.getExtras().getString("userName");
+        }
+        catch (Exception ex){
+            Log.e("Error: ", "No user name in location tracker");
+        }
+
+        N = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT);
+        restApiClient = new RestClient();
         System.out.println(N);
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 RECORDER_SAMPLERATE, RECORDER_CHANNELS,
                 RECORDER_AUDIO_ENCODING, N*2);
-
+        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+                getApplicationContext(),
+                "", // Identity pool ID
+                Regions.US_EAST_1 // Region
+        );
 
         recorder.startRecording();
 
@@ -97,12 +125,14 @@ public class panicVoiceDetection extends Service {
                 if(panic_request>3.2 && caretaker_request>5 ){
                     System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     SystemClock.sleep(5000);
+                    sendPanic();
 //                        TODO Panic request Pipeline
                 }
                 else {
                     if (panic_request > 3.2) {
                         System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         SystemClock.sleep(5000);
+                        sendPanic();
 //                        TODO Panic request Pipeline
                     }
 //                    if (caretaker_request > 4.5) {
@@ -122,5 +152,25 @@ public class panicVoiceDetection extends Service {
         }
     }
 
+
+    public void sendPanic(){
+        Log.i("sending panic for: ", userName);
+        String url = "/SilverSnug/Panic/SendPanicNotification?userName=" + userName;
+        restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
+            @Override
+            public void onSuccess(JSONObject jsonResponse) throws JSONException {
+                if(jsonResponse.getString("").equals("panic notification sent successfully"))
+                {
+                    Log.i("panic status: ", "panic sent successfully");
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+
+                Log.e("panic status: ", message);
+            }
+        });
+    }
 
 }
