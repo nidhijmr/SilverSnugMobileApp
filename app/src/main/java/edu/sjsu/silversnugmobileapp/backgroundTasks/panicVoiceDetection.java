@@ -11,15 +11,11 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.regions.Regions;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class panicVoiceDetection extends Service {
     private Handler handler;
@@ -58,11 +54,6 @@ public class panicVoiceDetection extends Service {
         recorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 RECORDER_SAMPLERATE, RECORDER_CHANNELS,
                 RECORDER_AUDIO_ENCODING, N*2);
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "", // Identity pool ID
-                Regions.US_EAST_1 // Region
-        );
 
         recorder.startRecording();
 
