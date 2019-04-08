@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
 public class PanicVoiceDetectionModel {
 
     private static final String TAG = "AppAssist";
-    private static final String MODEL_PATH = "converted_model-old.tflite";
+    private static final String MODEL_PATH = "converted_model.tflite";
     private Interpreter tflite;
 
     private PanicVoiceDetectionModel(){}

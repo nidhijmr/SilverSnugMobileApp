@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 
+import java.util.Arrays;
+
 public class panicVoiceDetection extends Service {
     private Handler handler;
     private AudioRecord recorder = null;
@@ -55,6 +57,7 @@ public class panicVoiceDetection extends Service {
                 RECORDER_SAMPLERATE, RECORDER_CHANNELS,
                 RECORDER_AUDIO_ENCODING, N*2);
 
+
         recorder.startRecording();
 
         isRecording = true;
@@ -88,57 +91,25 @@ public class panicVoiceDetection extends Service {
     }
 
     private void runPrediction() {
-        float caretaker_request = 0;
-        float panic_request = 0;
         while (isRecording) {
-            inputData = new float[16000][1];
-            outputData = new float[8][3];
+            inputData = new float[2000][1];
+            outputData = new float[1][2];
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 short[] buffer = new short[16000];
                 N = recorder.read(buffer,0,buffer.length);
-                for(int i=0;i<16000;i=i+1) {
-                    inputData[i][0] = (float) (buffer[i])/16384;
+                for(int i=0, j=0;i<16000;i=i+8,j=j+1) {
+                    inputData[j][0] = (float) (buffer[i]+32768)/(32768*2);
                 }
                 model.performAction(this.getAssets(), inputData, outputData);
 
-                 caretaker_request = 0;
-                 panic_request = 0;
-
-
-                for(int i=0;i<8; i++) {
-                    System.out.println(outputData[i][0]+"::"+outputData[i][1]+"::"+outputData[i][2]);
-                    panic_request = panic_request+outputData[i][0];
-                    caretaker_request = caretaker_request+outputData[i][2];
-                }
-
-
-                if(panic_request>3.2 && caretaker_request>5 ){
-                    System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    SystemClock.sleep(5000);
+                if(outputData[0][1]>0.02){
+                    SystemClock.sleep(3000);
                     sendPanic();
-//                        TODO Panic request Pipeline
                 }
-                else {
-                    if (panic_request > 3.2) {
-                        System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        SystemClock.sleep(5000);
-                        sendPanic();
-//                        TODO Panic request Pipeline
-                    }
-//                    if (caretaker_request > 4.5) {
-//                        System.out.println("!!!!!!!!!!!!!!!!!Care Taker Requested (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                        SystemClock.sleep(5000);
-////                        TODO Caretaker request Pipleine
-//                        }
-                    }
-                caretaker_request = caretaker_request/8;
-                panic_request = panic_request/8;
-                System.out.println("#######################################################################");
-                System.out.println("Caretaker = "+caretaker_request+"   Panic = "+panic_request);
 
-                System.out.println("#######################################################################");
-//
+
+
             }
         }
     }
