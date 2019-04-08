@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("userResponse: ", userResponse.toString());
 
         //user_name = i.getStringExtra("userName");
+
+        Intent intent=new Intent(MainActivity.this,LocationTracker.class);
+        intent.putExtra("userName", userResponse.getUserName());
+        getApplicationContext().startService(intent);
     }
 
     @Override
@@ -111,13 +115,17 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(intent);
     }
 
+    public void goToCurrentAddress(View view) {
+        Intent intent = new Intent(MainActivity.this, CurrentAddress.class);
+        MainActivity.this.startActivity(intent);
+    }
+
     public void goToTaskSchedule(View view) {
         Intent intent = new Intent(MainActivity.this, MainActivity4.class);
         intent.putExtra("userResponse", userResponse);
         MainActivity.this.startActivity(intent);
     }
     /*public void goToTaskSchedule (View view) {
-
         Intent intent = getPackageManager().getLaunchIntentForPackage("me.neelmehta.hack4health");
         startActivity(intent);
     }*/

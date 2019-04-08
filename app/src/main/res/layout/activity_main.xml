@@ -180,6 +180,7 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_margin="10dp"
+            android:onClick="goToCurrentAddress"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
