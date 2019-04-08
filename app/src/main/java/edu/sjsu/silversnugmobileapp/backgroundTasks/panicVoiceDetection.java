@@ -8,6 +8,7 @@ import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 
 public class panicVoiceDetection extends Service {
     private Handler handler;
@@ -20,7 +21,7 @@ public class panicVoiceDetection extends Service {
     int N=0;
     PanicVoiceDetectionModel model = null;
     private float[][] inputData =  new float[16000][1];
-    private float[][] outputData = new float[8][3];
+    private float[][] outputData = new float[1][3];
     public panicVoiceDetection() {
         model = PanicVoiceDetectionModel.getInstance();
     }
@@ -68,11 +69,12 @@ public class panicVoiceDetection extends Service {
     }
 
     private void runPrediction() {
-        int caretaker_request = 0;
-        int panic_request = 0;
+        float caretaker_request = 0;
+        float panic_request = 0;
         while (isRecording) {
             inputData = new float[16000][1];
             outputData = new float[8][3];
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 short[] buffer = new short[16000];
                 N = recorder.read(buffer,0,buffer.length);
@@ -84,23 +86,38 @@ public class panicVoiceDetection extends Service {
                  caretaker_request = 0;
                  panic_request = 0;
 
+
                 for(int i=0;i<8; i++) {
-                    if (outputData[i][0] > 0.6) {
-                        panic_request++;
+                    System.out.println(outputData[i][0]+"::"+outputData[i][1]+"::"+outputData[i][2]);
+                    panic_request = panic_request+outputData[i][0];
+                    caretaker_request = caretaker_request+outputData[i][2];
+                }
+
+
+                if(panic_request>3.2 && caretaker_request>5 ){
+                    System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    SystemClock.sleep(5000);
+//                        TODO Panic request Pipeline
+                }
+                else {
+                    if (panic_request > 3.2) {
+                        System.out.println("!!!!!!!!!!!!!!!!!Panic Detected (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        SystemClock.sleep(5000);
+//                        TODO Panic request Pipeline
                     }
-                    if (outputData[i][2] > .9) {
-                        caretaker_request++;
-
+//                    if (caretaker_request > 4.5) {
+//                        System.out.println("!!!!!!!!!!!!!!!!!Care Taker Requested (" + panic_request + " ::::" + caretaker_request + ")!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                        SystemClock.sleep(5000);
+////                        TODO Caretaker request Pipleine
+//                        }
                     }
-                }
-                if(caretaker_request>1) {
-                    System.out.println(caretaker_request+"      !!!!!!!!!!!!!!!!!Care Taker Requested!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                }
-                if(panic_request>1) {
+                caretaker_request = caretaker_request/8;
+                panic_request = panic_request/8;
+                System.out.println("#######################################################################");
+                System.out.println("Caretaker = "+caretaker_request+"   Panic = "+panic_request);
 
-                    System.out.println(panic_request+"     !!!!!!!!!!!!!!!!!Panic Detected!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                }
-
+                System.out.println("#######################################################################");
+//
             }
         }
     }
