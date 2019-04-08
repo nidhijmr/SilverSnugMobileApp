@@ -27,7 +27,7 @@ import com.google.android.gms.location.LocationServices;
 public class CurrentAddress extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     TextView txtLoc;
     Button ShowLocations;
-    public GoogleApiClient ggleAPICli;
+    public GoogleApiClient googleApiClient;
 
     private static String[] PERMS_STORAGE = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -51,9 +51,9 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
         this.registerReceiver(intentReceiver, intentToReceive, null, handler);
     }
 
-    private void stopLocUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(ggleAPICli,this);
-    }
+//    private void stopLocUpdates() {
+//        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
+//    }
 
     private void showLocation() {
 
@@ -89,7 +89,7 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
 
     @Override
     public void onConnectionSuspended(int i) {
-        ggleAPICli.connect();
+        googleApiClient.connect();
     }
 
     @Override
