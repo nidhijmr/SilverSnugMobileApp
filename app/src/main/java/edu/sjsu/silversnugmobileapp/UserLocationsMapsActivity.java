@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,19 +47,23 @@ public class UserLocationsMapsActivity extends FragmentActivity implements OnMap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_locations_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        restApiClient = new RestClient();
 
+
+        restApiClient = new RestClient();
+        responseList = new ArrayList<>();
         Intent i = getIntent();
         Bundle b =  i.getExtras();
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
         gson = new Gson();
-        getUserLocations(userResponse.getUserName());
+        //getUserLocations(userResponse.getUserName());
+        FetchLocations();
+
+        setContentView(R.layout.activity_user_locations_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
 
@@ -115,7 +120,7 @@ public class UserLocationsMapsActivity extends FragmentActivity implements OnMap
         googleMap.setIndoorEnabled(true);
         googleMap.setBuildingsEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-
+        Log.i("mao got location: ", responseList.toString());
         for(int i = 0; i< responseList.size(); i++) {
             LatLng tempLoc = new LatLng(Double.parseDouble(responseList.get(i).getLatitude()), Double.parseDouble(responseList.get(i).getLongitude()));
             geocoder = new Geocoder(this, Locale.getDefault());
@@ -141,5 +146,27 @@ public class UserLocationsMapsActivity extends FragmentActivity implements OnMap
         }
         //googleMap.setOnMarkerClickListener(this);
 
+    }
+
+    public void FetchLocations() {
+
+        Thread thrFetchLoc =  new Thread(new Runnable() {
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
+
+            @Override
+            public void run() {
+                getUserLocations(userResponse.getUserName());
+            }
+        });
+        thrFetchLoc.start();
+
+        try {
+            thrFetchLoc.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

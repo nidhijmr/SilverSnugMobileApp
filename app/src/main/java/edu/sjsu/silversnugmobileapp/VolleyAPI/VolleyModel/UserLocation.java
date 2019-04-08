@@ -2,21 +2,21 @@ package edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel;
 
 public class UserLocation {
     private String id;
-    private String anomalyscore;
-    private String datetime;
+    private String anomalyScore;
+    private String dateTime;
     private String latitude;
     private String longitude;
-    private String patientusername;
+    private String patientUsername;
 
     public UserLocation(){}
 
-    public UserLocation(String id, String anomalyscore, String datetime, String latitude, String longitude, String patientusername) {
+    public UserLocation(String id, String anomalyScore, String dateTime, String latitude, String longitude, String patientUsername) {
         this.id = id;
-        this.anomalyscore = anomalyscore;
-        this.datetime = datetime;
+        this.anomalyScore = anomalyScore;
+        this.dateTime = dateTime;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.patientusername = patientusername;
+        this.patientUsername = patientUsername;
     }
 
     public String getID(){
@@ -28,19 +28,19 @@ public class UserLocation {
     }
 
     public String getAnomalyScore(){
-        return anomalyscore;
+        return anomalyScore;
     }
 
-    public void setAnomalyScore(String anomalyscore){
-        this.anomalyscore=anomalyscore;
+    public void setAnomalyScore(String anomalyScore){
+        this.anomalyScore=anomalyScore;
     }
 
     public String getDateTime(){
-        return datetime;
+        return dateTime;
     }
 
-    public void setDateTime(String datetime){
-        this.datetime=datetime;
+    public void setDateTime(String dateTime){
+        this.dateTime=dateTime;
     }
 
     public String getLatitude(){
@@ -59,23 +59,23 @@ public class UserLocation {
         this.longitude=longitude;
     }
 
-    public String getUsername(){
-        return patientusername;
+    public String getPatientUsername(){
+        return patientUsername;
     }
 
-    public void setUsername(String patientusername){
-        this.patientusername=patientusername;
+    public void setPatientUsername(String patientUsername){
+        this.patientUsername=patientUsername;
     }
 
     @Override
     public String toString() {
         return "UserLocation{" +
                 "id='" + id + '\'' +
-                ", anomalyscore='" + anomalyscore + '\'' +
-                ", datetime='" + datetime + '\'' +
+                ", anomalyScore='" + anomalyScore + '\'' +
+                ", dateTime='" + dateTime + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
-                ", patientusername='" + patientusername + '\'' +
+                ", patientUsername='" + patientUsername + '\'' +
                 '}';
     }
 }
