@@ -87,9 +87,16 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("Success", username.getText().toString());
                     userResponse = gson.fromJson(jsonResponse.toString(), UserResponse.class);
                     Log.i("Success userResponse", userResponse.toString());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userResponse", userResponse);
-                    LoginActivity.this.startActivity(intent);
+                    if(userResponse.getRole().equals("patient")) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("userResponse", userResponse);
+                        LoginActivity.this.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, CareTakerDashboardActivity.class);
+                        intent.putExtra("userResponse", userResponse);
+                        LoginActivity.this.startActivity(intent);
+                    }
+
 
                 }
             }

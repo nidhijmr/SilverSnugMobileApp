@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
 
 android {
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "edu.sjsu.silversnugmobileapp"
@@ -23,6 +26,7 @@ android {
         noCompress "lite"
     }
 }
+
 
 dependencies {
     implementation 'com.googlecode.json-simple:json-simple:1.1'

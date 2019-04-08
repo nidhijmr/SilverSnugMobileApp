@@ -20,17 +20,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value=""/>
+
+        <activity
+            android:name=".UserLocationsMapsActivity"
+            android:label="@string/title_activity_user_locations_maps"></activity>
+        <activity
+            android:name=".CareTakerDashboardActivity"
+            android:label="@string/title_activity_care_taker_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".backgroundTasks.panicVoiceDetection"
             android:enabled="true"
             android:exported="true"></service>
+      
         <activity android:name=".CurrentAddress"></activity>
-
         <service
             android:name=".LocationTracker"
             android:enabled="true"
             android:exported="true" />
-
+      
         <activity android:name=".AddressBookMapActivity" />
         <activity
             android:name=".SignUpActivity"
