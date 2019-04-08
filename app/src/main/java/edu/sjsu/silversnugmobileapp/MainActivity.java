@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
+import edu.sjsu.silversnugmobileapp.backgroundTasks.panicVoiceDetection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("DashBoard");
+        Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
+        getApplicationContext().startService(panicVcDetect);
 
         Intent i = getIntent();
         Bundle b =  i.getExtras();
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("userResponse: ", userResponse.toString());
 
         //user_name = i.getStringExtra("userName");
+
+        Intent intent=new Intent(MainActivity.this,LocationTracker.class);
+        intent.putExtra("userName", userResponse.getUserName());
+        getApplicationContext().startService(intent);
     }
 
     @Override
@@ -102,16 +109,25 @@ public class MainActivity extends AppCompatActivity {
       MainActivity.this.startActivity(intent);
     }
 
-    public void goToViewProfile(View view) {
+    public void goToVewProfile(View view) {
         Intent intent = new Intent(MainActivity.this, ViewProfile.class);
         intent.putExtra("userResponse", userResponse);
         MainActivity.this.startActivity(intent);
     }
 
-    public void goToTaskSchedule (View view) {
+    public void goToCurrentAddress(View view) {
+        Intent intent = new Intent(MainActivity.this, CurrentAddress.class);
+        MainActivity.this.startActivity(intent);
+    }
 
+    public void goToTaskSchedule(View view) {
+        Intent intent = new Intent(MainActivity.this, MainActivity4.class);
+        intent.putExtra("userResponse", userResponse);
+        MainActivity.this.startActivity(intent);
+    }
+    /*public void goToTaskSchedule (View view) {
         Intent intent = getPackageManager().getLaunchIntentForPackage("me.neelmehta.hack4health");
         startActivity(intent);
-    }
+    }*/
 }
 

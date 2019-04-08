@@ -180,6 +180,7 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_margin="10dp"
+            android:onClick="goToCurrentAddress"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
@@ -216,9 +217,9 @@
         android:layout_height="108dp"
         android:clipToPadding="false"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
-        <Button
+        <!-- <Button
             android:id="@+id/emergencydial"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -226,15 +227,29 @@
             android:text="SOS call"
             android:textColor="#E57373"
             android:textSize="24dp" />
+-->
 
+        <Button
+            android:id="@+id/emergencydial"
+            android:layout_width="86dp"
+            android:layout_height="76dp"
+            android:layout_gravity="bottom|end"
+
+            android:background="@drawable/icon"
+            android:textColor="#E57373"
+            android:textSize="24dp" />
+
+        <Button
+            android:id="@+id/ubereats"
+            android:layout_width="86dp"
+            android:layout_height="76dp"
+            android:layout_gravity="bottom|end"
+
+            android:background="@drawable/ubeeats"
+            android:textColor="#E57373"
+            android:textSize="24dp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/ViewProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goToViewProfile"
-        android:text="View Profile" />
 
 </LinearLayout>
 
