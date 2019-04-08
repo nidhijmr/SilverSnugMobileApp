@@ -37,6 +37,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.AddressBook;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.AddressBookCoordinates;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
 import edu.sjsu.silversnugmobileapp.utilities.RecyclerTouchListener;
 
@@ -50,6 +51,7 @@ public class AddressBookActivity extends AppCompatActivity {
     private RecyclerView rv;
     private EditText addressBookNameEditText;
     private EditText addressBookAddressEditText;
+    private UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,10 @@ public class AddressBookActivity extends AppCompatActivity {
         }));
         loadAddressBookList();
         getSupportActionBar().setTitle("Address Book");
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
     }
 
     @Override
@@ -124,8 +130,16 @@ public class AddressBookActivity extends AppCompatActivity {
     }
 
     public void loadAddressBookList() {
+
+        if(userResponse==null){
+            Intent i = getIntent();
+            Bundle b =  i.getExtras();
+            userResponse =  (UserResponse)b.get("userResponse");
+            Log.i("userResponse: ", userResponse.toString());
+        }
+
         //Call to GET REST API to get all saved Addresses
-        String url = "/SilverSnug/Address/getAddress?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502";
+        String url = "/SilverSnug/Address/getAddress?userId=" + userResponse.getUserId();
         restClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
@@ -148,7 +162,10 @@ public class AddressBookActivity extends AppCompatActivity {
                 Log.i("AddressBookActivity", message);
             }
         });
+
+
     }
+
 
     public void addAddress(View view) {
         LinearLayout layout = new LinearLayout(this);
@@ -200,7 +217,7 @@ public class AddressBookActivity extends AppCompatActivity {
         address_parse = addressBookAddressEditText.getText().toString().replaceAll(" ", "+");
         address_parse = address_parse.replaceAll("#", "apt:");
 
-        String geocoding_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address_parse + "&key=<GOOGLE_API_KEY>";
+        String geocoding_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address_parse + "&key=<****GoogleAPIKey****>";
         Object result = new GetLatLongOperation(new GetLatLongOperation.AsynResponse() {
             @Override
             public void processFinish(String output) {
@@ -222,7 +239,7 @@ public class AddressBookActivity extends AppCompatActivity {
                 }
 
                 //Set UserID
-                request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
+                request.setUserId(userResponse.getUserId());
 
                 //Call to POST REST API to save New Address
                 try {
@@ -251,7 +268,7 @@ public class AddressBookActivity extends AppCompatActivity {
 
     public void removeAddress(String addressName) {
         //Call to POST REST API to remove Addresses
-        String url = "/SilverSnug/Address/removeAddress?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502" +"&addressName="+addressName;
+        String url = "/SilverSnug/Address/removeAddress?userId=" + userResponse.getUserId() +"&addressName="+addressName;
         AddressBookRequest request = new AddressBookRequest();
         try{
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
