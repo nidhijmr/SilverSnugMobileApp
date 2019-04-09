@@ -28,9 +28,12 @@ import java.util.List;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PillBox;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
+import edu.sjsu.silversnugmobileapp.utilities.RecyclerTouchListener;
 
 public class PillBoxActivity extends AppCompatActivity {
 
@@ -58,11 +61,36 @@ public class PillBoxActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
         restApiClient = new RestClient();
         gson = new Gson();
-        loadPillBoxList();
+
+        rv.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rv, new RecyclerTouchListener.ClickListener() {
+
+
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+                AlertDialog dialog =  new AlertDialog.Builder(view.getContext())
+                        .setTitle("Delete Pill")
+                        .setMessage("Are you sure you want to delete this Pill?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String pillSelectedRemove = labelsList.get(position);
+                                removePill(pillSelectedRemove);
+                                loadPillBoxList();
+                            }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        }));
+                loadPillBoxList();
+
     }
-
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -76,7 +104,7 @@ public class PillBoxActivity extends AppCompatActivity {
     }
 
     public void loadPillBoxList() {
-        String url = "/SilverSnug/PillBox/getPill?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502";
+        String url = "/SilverSnug/PillBox/getPill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303";
         restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
@@ -87,7 +115,7 @@ public class PillBoxActivity extends AppCompatActivity {
                 labelsList.clear();
 
                 for (PillBox record : responseList)
-                    labelsList.add(record.getMedicineName() + '-' + record.getDosage() + '-' + record.getPotency() + '-' + record.getNotes());
+                    labelsList.add("PillName : " + record.getMedicineName()  + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
 
                 final RVAdapter adapter = new RVAdapter(labelsList);
                 rv.setAdapter(adapter);
@@ -168,7 +196,7 @@ public class PillBoxActivity extends AppCompatActivity {
             Log.e("PillBoxActivity", "Pill notes cannot be empty");
             return;
         }
-        request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
+        request.setUserId("7649229d-1483-4b9e-b9a8-d79470f46303");
         try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
@@ -191,7 +219,47 @@ public class PillBoxActivity extends AppCompatActivity {
 
     }
 
+    public void removePill(String medicineName){
+
+        String url = "/SilverSnug/PillBox/deletePill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303" +"&medicineName="+medicineName;
+        PillBoxRequest request = new PillBoxRequest();
+        try{
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                    PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
+                    Log.i("PillBoxActivity", response.toString());
+                    Toast.makeText(getApplicationContext(), "Pill deleted successfully!", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onError(String message) {
+                    Log.i("PillBoxActivity", message);
+                }
+            });
+
+        } catch (JSONException e) {
+            String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
+            Log.e("PillBoxActivity", err);
         }
+
+    }
+
+
+    public void editPill(View view){
+
+        Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
+        startActivity(intent);
+
+}
+
+
+}
+
+
+
+
 
 
 

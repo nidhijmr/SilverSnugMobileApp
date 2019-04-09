@@ -2,17 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.sjsu.silversnugmobileapp">
 
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -21,6 +19,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <permission android:name="android.permission.CALL_PRIVILEGED"
         android:protectionLevel="signature|privileged" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="true"
@@ -30,6 +29,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value=""/>
+
+        <activity
+            android:name=".UserLocationsMapsActivity"
+            android:label="@string/title_activity_user_locations_maps"></activity>
+        <activity
+            android:name=".CareTakerDashboardActivity"
+            android:label="@string/title_activity_care_taker_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".backgroundTasks.panicVoiceDetection"
+            android:enabled="true"
+            android:exported="true"></service>
+      
+        <activity android:name=".CurrentAddress"></activity>
+        <service
+            android:name=".LocationTracker"
+            android:enabled="true"
+            android:exported="true" />
+      
         <activity android:name=".AddressBookMapActivity" />
         <activity
             android:name=".SignUpActivity"
@@ -53,6 +73,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewTaskActivity" />
         <activity
             android:name=".AddressBookActivity"
             android:label="@string/title_activity_address_book" />
@@ -70,7 +91,16 @@
         <activity
             android:name=".AddPillBox"
             android:label="@string/title_activity_add_pill_box"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditPill"
+            android:label="@string/title_activity_edit_pill"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity4"
+            android:label="@string/title_activity_main4"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".InsertImageActivity"
             android:label= "@string/title_activity_insert_image"></activity>
@@ -78,9 +108,7 @@
             android:name=".GetImageActivity"
             android:label="@string/title_activity_get_image"></activity>
 
-        <service
-            android:name= "com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
-            android:enabled="true" />
+ 
     </application>
 
 </manifest>

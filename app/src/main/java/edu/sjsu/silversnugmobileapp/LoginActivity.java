@@ -18,10 +18,9 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Gson gson;
     private RecyclerView rv;
     EditText username, password;
+    UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +85,18 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("error loggin in", "Invalid username/credentials");
                 } else {
                     Log.i("Success", username.getText().toString());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userName", username.getText());
-                    LoginActivity.this.startActivity(intent);
+                    userResponse = gson.fromJson(jsonResponse.toString(), UserResponse.class);
+                    Log.i("Success userResponse", userResponse.toString());
+                    if(userResponse.getRole().equals("patient")) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("userResponse", userResponse);
+                        LoginActivity.this.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, CareTakerDashboardActivity.class);
+                        intent.putExtra("userResponse", userResponse);
+                        LoginActivity.this.startActivity(intent);
+                    }
+
 
                 }
             }
