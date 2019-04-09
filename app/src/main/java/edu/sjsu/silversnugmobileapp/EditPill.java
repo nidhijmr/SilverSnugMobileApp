@@ -38,6 +38,7 @@ public class EditPill extends AppCompatActivity {
     PillBoxResponse pillResponse;
     PillBoxRequest pillRequest;
     Button Cancel, Save;
+    private UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,7 @@ public class EditPill extends AppCompatActivity {
             Log.e("PillBoxActivity", "Pill notes cannot be empty");
             return;
         }
-        request.setUserId("7649229d-1483-4b9e-b9a8-d79470f46303");
+        request.setUserId(userResponse.getUserId());
         try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {

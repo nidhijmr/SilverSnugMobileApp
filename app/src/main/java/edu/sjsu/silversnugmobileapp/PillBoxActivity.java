@@ -32,6 +32,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
 import edu.sjsu.silversnugmobileapp.utilities.RecyclerTouchListener;
 
@@ -50,6 +51,7 @@ public class PillBoxActivity extends AppCompatActivity {
     private TextView pillTextView;
     ArrayAdapter<List<PillBox>> adapter;
     private RecyclerView rv;
+    private UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,10 @@ public class PillBoxActivity extends AppCompatActivity {
             }
         }));
                 loadPillBoxList();
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
 
     }
     @Override
@@ -104,7 +110,13 @@ public class PillBoxActivity extends AppCompatActivity {
     }
 
     public void loadPillBoxList() {
-        String url = "/SilverSnug/PillBox/getPill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303";
+        if(userResponse==null){
+            Intent i = getIntent();
+            Bundle b =  i.getExtras();
+            userResponse =  (UserResponse)b.get("userResponse");
+            Log.i("userResponse: ", userResponse.toString());
+        }
+        String url = "/SilverSnug/PillBox/getPill?userId=" + userResponse.getUserId();
         restApiClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
@@ -196,7 +208,7 @@ public class PillBoxActivity extends AppCompatActivity {
             Log.e("PillBoxActivity", "Pill notes cannot be empty");
             return;
         }
-        request.setUserId("7649229d-1483-4b9e-b9a8-d79470f46303");
+        request.setUserId(userResponse.getUserId());
         try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
@@ -221,7 +233,7 @@ public class PillBoxActivity extends AppCompatActivity {
 
     public void removePill(String medicineName){
 
-        String url = "/SilverSnug/PillBox/deletePill?userId=" + "7649229d-1483-4b9e-b9a8-d79470f46303" +"&medicineName="+medicineName;
+        String url = "/SilverSnug/PillBox/deletePill?userId=" + userResponse.getUserId() +"&medicineName="+medicineName;
         PillBoxRequest request = new PillBoxRequest();
         try{
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
