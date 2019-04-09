@@ -20,6 +20,10 @@
     <string name="title_activity_edit_profile">EditProfile</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_add_pill_box">AddPillBox</string>
+
+    <string name="title_activity_insert_image">InsertImageActivity</string>
+    <string name="title_activity_get_image">GetImageActivity</string>
+
     <string name="title_activity_edit_pill">EditPill</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -31,4 +35,5 @@
     <string name="title_activity_care_taker_dashboard">CareTakerDashboardActivity</string>
     <string name="title_activity_user_locations_maps">Map</string>
     <string name="title_activity_main4">MainActivity4</string>
+
 </resources>
