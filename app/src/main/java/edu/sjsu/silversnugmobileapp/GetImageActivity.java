@@ -79,6 +79,7 @@ public class GetImageActivity extends AppCompatActivity {
                     String contactNumber = record.getContactNumber();
                     String relationship = record.getRelationship();
                     String imagePath = record.getPhoto();
+                    System.out.println("imagePath "+ imagePath);
 
                     imageDetails.add(new ImageDetails(name,contactNumber,relationship,imagePath));
                 }

@@ -224,9 +224,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
                     Regions.US_EAST_1 // Region
             );
 
-           /* BasicAWSCredentials credentials = new BasicAWSCredentials
-                    (AWS_KEY, AWS_SECRET);// Add the access key and access key id to the  credentials */
-
             s3Client = new AmazonS3Client(credentialsProvider, clientConfig);
             s3Client.setRegion(Region.getRegion(Regions.US_EAST_1));
 
@@ -246,17 +243,17 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             String[] s = selectedImagePath.split("\\.");
 
-            String extenstion = s[s.length - 1];
+            String extention = s[s.length - 1];
 
-            Log.d("message", "set content length : " + file.length() + "sss" + extenstion);
+            Log.d("message", "set content length : " + file.length() + "sss" + extention);
 
             String fileName = UUID.randomUUID().toString();
 
-            PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "photos/" + fileName + "." + extenstion, stream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(AWS_BUCKET, "photos/" + fileName + "." + extention, stream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
 
             PutObjectResult result = s3Client.putObject(putObjectRequest);
 
-            imagePath = "https://s3.amazonaws.com/silversnugphotos/photos/" + fileName;
+            imagePath = "https://s3.amazonaws.com/silversnugphotos/photos/" + fileName +"."+ extention;
 
 
             runOnUiThread(new Runnable() {
