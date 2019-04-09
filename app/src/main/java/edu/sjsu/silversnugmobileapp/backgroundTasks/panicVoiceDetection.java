@@ -105,7 +105,7 @@ public class panicVoiceDetection extends Service {
 
                 if(outputData[0][1]>0.02){
                     SystemClock.sleep(3000);
-                    sendPanic();
+                    //sendPanic();
                 }
 
 
