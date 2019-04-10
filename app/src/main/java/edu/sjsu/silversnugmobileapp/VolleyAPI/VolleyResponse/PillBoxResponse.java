@@ -30,7 +30,7 @@ public class PillBoxResponse extends GenericResponse {
     @Override
     public String toString() {
         return "PillBoxResponse{" +
-                "PillBox=" + pillBoxes +
+                "pillBoxes=" + pillBoxes +
                 ", status='" + status + '\'' +
                 ", message='" + message + '\'' +
                 '}';

@@ -19,6 +19,7 @@ public class PillBoxRequest implements Serializable {
 
     public PillBoxRequest(String userId, String pillBoxId, String medicineName, String potency, String dosage, String notes) {
         this.userId = userId;
+        this.pillBoxId=pillBoxId;
         this.medicineName = medicineName;
         this.potency = potency;
         this.dosage = dosage;

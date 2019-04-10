@@ -1,6 +1,5 @@
 package edu.sjsu.silversnugmobileapp;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,9 +27,7 @@ import java.util.List;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PillBox;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
@@ -44,26 +41,31 @@ public class PillBoxActivity extends AppCompatActivity {
     private EditText pillnameEditText;
     private EditText pilldosageEditText;
     private EditText pillpotencyEditText;
-    private EditText pillnotesEditText;
-    private List<String> labelsList = new ArrayList<>();
-    private PillBoxResponse response;
     private Gson gson;
-    private TextView pillTextView;
-    ArrayAdapter<List<PillBox>> adapter;
+    private RVAdapter adapter = null;
     private RecyclerView rv;
+    private EditText pillnotesEditText;
+    private List<String> labelsList = new ArrayList<String>();
+    private PillBoxResponse response;
+    private TextView pillTextView;
     private UserResponse userResponse;
+    private PillBox pillBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pill_box);
         rv = findViewById(R.id.rv);
+
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
         restApiClient = new RestClient();
+
         gson = new Gson();
 
+        adapter = new RVAdapter(labelsList);
+        rv.setAdapter(adapter);
         rv.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rv, new RecyclerTouchListener.ClickListener() {
 
 
@@ -76,11 +78,16 @@ public class PillBoxActivity extends AppCompatActivity {
             public void onLongClick(View view, final int position) {
                 AlertDialog dialog =  new AlertDialog.Builder(view.getContext())
                         .setTitle("Delete Pill")
-                        .setMessage("Are you sure you want to delete this Pill?")
+                        .setMessage("Are you sure you want to delete this pill?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                String pillSelectedRemove = labelsList.get(position);
-                                removePill(pillSelectedRemove);
+                                String pillSelectedToRemove = labelsList.get(position);
+                                System.out.print(labelsList.get(position));
+                                String[] pillname = labelsList.get(position).split("\n");
+                                System.out.print(pillname);
+                                String[] pillnamenew = pillname[0].split(":");
+
+                                removePill(pillnamenew[1]);
                                 loadPillBoxList();
                             }
                         })
@@ -231,16 +238,18 @@ public class PillBoxActivity extends AppCompatActivity {
 
     }
 
-    public void removePill(String medicineName){
-
+    public void removePill(String medicineName) {
+        System.out.print(medicineName);
         String url = "/SilverSnug/PillBox/deletePill?userId=" + userResponse.getUserId() +"&medicineName="+medicineName;
         PillBoxRequest request = new PillBoxRequest();
         try{
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            System.out.print(jsonObject);
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
                     PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
+                    System.out.print(response);
                     Log.i("PillBoxActivity", response.toString());
                     Toast.makeText(getApplicationContext(), "Pill deleted successfully!", Toast.LENGTH_LONG).show();
                 }
@@ -250,13 +259,12 @@ public class PillBoxActivity extends AppCompatActivity {
                     Log.i("PillBoxActivity", message);
                 }
             });
-
         } catch (JSONException e) {
-            String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
-            Log.e("PillBoxActivity", err);
+            Log.e("PillBoxActivity", e.getMessage());
         }
 
     }
+
 
 
     public void editPill(View view){
