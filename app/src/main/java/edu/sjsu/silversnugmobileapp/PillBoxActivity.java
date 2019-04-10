@@ -134,7 +134,7 @@ public class PillBoxActivity extends AppCompatActivity {
                 labelsList.clear();
 
                 for (PillBox record : responseList)
-                    labelsList.add("PillName : " + record.getMedicineName()  + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
+                    labelsList.add("PillName :" +record.getMedicineName()  + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
 
                 final RVAdapter adapter = new RVAdapter(labelsList);
                 rv.setAdapter(adapter);
