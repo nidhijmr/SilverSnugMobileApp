@@ -37,7 +37,7 @@ public class GetImageActivity extends AppCompatActivity {
     Button get;
     ImageGridViewAdapter adapter;
     private GridView imageGridview;
-    String username;
+    String userId;
     ImageView imageView;
     private static final String AWS_BUCKET = "silversnugphotos";
     private static final String Key = "photos";
@@ -53,17 +53,19 @@ public class GetImageActivity extends AppCompatActivity {
         imageGridview =(GridView) findViewById(R.id.my_grid_view);
         imageDetails = new ArrayList<>();
 
-        //username=getIntent().getExtras().getString("username");
+        userId=getIntent().getExtras().getString("userId");
         ctx = this;
         restClient = new RestClient();
         gson = new Gson();
+
 
         loadPhotoGallery();
     }
 
     public void loadPhotoGallery()
     {
-        String url = "/SilverSnug/PhotoGallery/getPhotoGallery?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502";
+        System.out.println("userId "+ userId);
+        String url = "/SilverSnug/PhotoGallery/getPhotoGallery?userId=" + userId;
         restClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {

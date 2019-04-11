@@ -28,7 +28,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.EmergencyContactRes
 
 
 public class EmergencyCall extends AppCompatActivity {
-    String phoneNumber = "", address, username;
+    String phoneNumber = "+14085642239", address, userId;
     String message;
     TelephonyManager manager;
     private RestClient restClient;
@@ -37,17 +37,17 @@ public class EmergencyCall extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        address = getIntent().getExtras().getString("address");
-        username = getIntent().getExtras().getString("username");
-        System.out.println("Username " + username + " inside Emergency call");
-        message = "Emergency! I may need help!!. My location: " + address;
+     //   address = getIntent().getExtras().getString("address");
+        userId = getIntent().getExtras().getString("userId");
+        System.out.println("UserId " + userId + " inside Emergency call");
+        message = "Emergency! I may need help!!."; // My location: " + address;
 
         System.out.println("inside emergency call: on create");
 
         restClient = new RestClient();
         gson = new Gson();
 
-        getEmergencyContactNumber();
+       // getEmergencyContactNumber();
 
         if (!phoneNumber.equals("")) {
 
@@ -60,14 +60,17 @@ public class EmergencyCall extends AppCompatActivity {
         }
     }
 
-    public void getEmergencyContactNumber()
+   /* public void getEmergencyContactNumber()
     {
-        String url = "/SilverSnug/FallDetection/getEmergencyContact?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502";
+        String url = "/SilverSnug/FallDetection/getEmergencyContact?userId=" + userId;
+
+        System.out.println("Inside getEmergencyContactNumber method");
 
         restClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
                 EmergencyContactResponse response = gson.fromJson(jsonResponse.toString(), EmergencyContactResponse.class);
+                System.out.println(response);
                 Log.i("EmergencyCall", response.toString());
 
                 EmergencyContactNumber emergencyResponse = response.getEmergencyContactNumber();
@@ -82,7 +85,7 @@ public class EmergencyCall extends AppCompatActivity {
             }
         });
 
-    }
+    } */
 
 
     public void sendMessage(String message, String phoneNumber) {

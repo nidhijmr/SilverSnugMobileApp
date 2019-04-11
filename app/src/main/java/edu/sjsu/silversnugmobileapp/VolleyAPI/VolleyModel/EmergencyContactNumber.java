@@ -2,7 +2,7 @@ package edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel;
 
 public class EmergencyContactNumber {
 
-    private String userName;
+    private String userId;
     private String contactNumber;
 
 
@@ -11,18 +11,18 @@ public class EmergencyContactNumber {
 
     }
 
-    public EmergencyContactNumber(String userName, String contactNumber)
+    public EmergencyContactNumber(String userId, String contactNumber)
     {
-        this.userName = userName;
+        this.userId = userId;
         this.contactNumber = contactNumber;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getContactNumber() {
