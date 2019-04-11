@@ -36,8 +36,7 @@
             android:label="@string/title_activity_user_locations_maps"></activity>
         <activity
             android:name=".CareTakerDashboardActivity"
-            android:label="@string/title_activity_care_taker_dashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_care_taker_dashboard" />
 
         <service
             android:name=".backgroundTasks.panicVoiceDetection"

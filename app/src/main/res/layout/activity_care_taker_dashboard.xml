@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center"
     tools:context=".CareTakerDashboardActivity">
 
     <LinearLayout
@@ -15,25 +19,24 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/address"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="10dp"
+            android:layout_width="340dp"
+            android:layout_height="150dp"
 
+            android:layout_margin="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            android:layout_width="match_parent"
                 android:background="@color/colorPrimary"
-                android:onClick="goToAnomalyDetector"
-                android:gravity="center"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+        <ImageView
+            android:layout_width="62dp"
+            android:layout_height="59dp"
                     android:background="@drawable/ic_location_on_black_24dp"
                     android:padding="10dp"
                     android:src="@drawable/ic_location_on_black_24dp" />
@@ -48,17 +51,19 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+    </LinearLayout>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/photoalbum"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:id="@+id/viewprofile"
+            android:layout_width="340dp"
+            android:layout_height="150dp"
             android:layout_margin="10dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:onClick="goTocareTakerViewProfile"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
@@ -75,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#E57373"
                     android:layout_marginTop="10dp"
-                    android:text="Photo Album"
+                    android:text="View Profile"
 
                     android:textStyle="bold" />
 
@@ -85,28 +90,3 @@
 
     </LinearLayout>
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
-
-    <!--<include layout="@layout/content_care_taker_dashboard" />-->
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
-
-</LinearLayout>
