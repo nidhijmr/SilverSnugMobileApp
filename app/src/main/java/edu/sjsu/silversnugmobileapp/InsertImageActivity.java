@@ -222,7 +222,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     getApplicationContext(),
-                    "us-east-1:d91f3bc5-0ee7-43d2-ad64-7af1d14f6c03", // Identity pool ID
+                    "", // Identity pool ID
                     Regions.US_EAST_1 // Region
             );
 
