@@ -107,6 +107,7 @@
         <activity
             android:name=".GetImageActivity"
             android:label="@string/title_activity_get_image"></activity>
+        <activity android:name=".SettingsActivity" />
 
  
     </application>

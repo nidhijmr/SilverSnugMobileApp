@@ -46,7 +46,7 @@ public class CareTakerDashboardActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.myprofile, menu);
         inflater.inflate(R.menu.logout, menu);
-        inflater.inflate(R.menu.deleteaccount, menu);
+       /* inflater.inflate(R.menu.deleteaccount, menu);*/
         return super.onCreateOptionsMenu(menu);
     }
 
