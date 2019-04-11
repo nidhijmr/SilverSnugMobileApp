@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Intent intent=new Intent(MainActivity.this,LocationTracker.class);
         intent.putExtra("userName", userResponse.getUserName());
         getApplicationContext().startService(intent);
+
+        accelerometerManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        accelerometer = accelerometerManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -130,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void goToPhotoAlbum(View view) {
       Intent intent = new Intent(MainActivity.this, PhotoAlbumActivity.class);
-      intent.putExtra("userResponse", userResponse);
+     // intent.putExtra("userResponse", userResponse);
+        intent.putExtra("userId", userResponse.getUserId());
       MainActivity.this.startActivity(intent);
     }
 
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             double acVector = Math.sqrt(x * x + y * y + z * z);
             //System.out.println("acVector= " + acVector + " at " + System.currentTimeMillis());
 
-            if (acVector > 20) {
+            if (acVector > 10) {
                 greaterThan = true;
                 t1 = System.currentTimeMillis();
             } else if (acVector < 3) {
@@ -170,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     if (gps.GetLocation()) {
                         address = gps.getAddress();
                         intent.putExtra("address", address);
-                        intent.putExtra("username",username );
+                        intent.putExtra("userId",userResponse.getUserId() );
                     }
                     System.out.println("callFlag= "+ callFlag);
                     intent.setClass(this, FallDetection.class);

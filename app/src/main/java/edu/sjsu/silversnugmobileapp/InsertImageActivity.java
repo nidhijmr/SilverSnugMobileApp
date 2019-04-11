@@ -56,7 +56,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
     private static final int PICK_IMAGE = 100;
     private static final int RESULT_OK = -1;
     String sname, srelation, scontactNumber;
-    String username;
+    String userId;
     private Gson gson;
     private RestClient restApiClient;
     private static final String AWS_KEY = "";
@@ -85,6 +85,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
                 addPhoto();
             }
         });
+        userId= getIntent().getStringExtra("userId");
     }
 
     @Override
@@ -135,7 +136,8 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-        request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
+      //  request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
+        request.setUserId(userId);
 
         System.out.println("ImagePath=" + imagePath);
 
@@ -220,7 +222,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     getApplicationContext(),
-                    "", // Identity pool ID
+                    "us-east-1:d91f3bc5-0ee7-43d2-ad64-7af1d14f6c03", // Identity pool ID
                     Regions.US_EAST_1 // Region
             );
 

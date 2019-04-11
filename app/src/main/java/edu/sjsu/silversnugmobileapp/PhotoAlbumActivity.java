@@ -19,7 +19,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
     private static final int RESULT_OK = -1;
     private GridView imageGridview;
     private int columnWidth = 500;
-    String username;
+    String userId;
 
 
     @Override
@@ -33,6 +33,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
         get = (CardView) findViewById(R.id.display_pictures);
         insert.setOnClickListener(this);
         get.setOnClickListener((View.OnClickListener) this);
+        userId= getIntent().getStringExtra("userId");
 
         /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +48,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 Intent getImageIntent = new Intent(PhotoAlbumActivity.this, GetImageActivity.class);
-                getImageIntent.putExtra("username", username);
+                getImageIntent.putExtra("userId", userId);
                 startActivity(getImageIntent);
 
             }
@@ -59,7 +60,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.add_picture:
                 Intent insertIntent = new Intent(PhotoAlbumActivity.this, InsertImageActivity.class);
-                insertIntent.putExtra("username", username);
+                insertIntent.putExtra("userId", userId);
                 startActivity(insertIntent);
                 break;
         }

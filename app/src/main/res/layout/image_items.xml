@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textColor="#000"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:textSize="12sp" />
 
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textColor="#000"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold"
         android:textSize="12sp" />
 
@@ -59,7 +59,7 @@
         android:text="Call"
         android:textStyle="bold"
         android:textAllCaps="false"
-        android:textColor="#FFFF"
+        android:textColor="@color/colorAccent"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@drawable/roundedbutton"
@@ -75,7 +75,7 @@
            android:text="Delete"
            android:textStyle="bold"
            android:textAllCaps="false"
-           android:textColor="#FFFF"
+           android:textColor="@color/colorAccent"
            android:paddingLeft="10dp"
            android:paddingRight="10dp"
            android:background="@drawable/roundedbutton"
