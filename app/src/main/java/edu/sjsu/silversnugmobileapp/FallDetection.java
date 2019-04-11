@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class FallDetection extends AppCompatActivity implements View.OnClickListener {
 
-    String phoneNumber, username, address;
+    String phoneNumber, userId, address;
    // DatabaseHelper db;
     MediaPlayer mp;
    // Boolean callFlag=true;
@@ -22,9 +22,9 @@ public class FallDetection extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fall_detection);
-        address = getIntent().getStringExtra("address");
-        username = getIntent().getStringExtra("username");
-        System.out.println("Username= "+ username+ " inside Fall Detection");
+       // address = getIntent().getStringExtra("address");
+        userId = getIntent().getStringExtra("userId");
+        System.out.println("UserId= "+ userId+ " inside Fall Detection");
         yesButton = (Button) findViewById(R.id.yes);
         yesButton.setOnClickListener(this);
 
@@ -57,9 +57,10 @@ public class FallDetection extends AppCompatActivity implements View.OnClickList
         mp.stop();
         countDownTimer.cancel();
     //   yesButton.setEnabled(false);
+        System.out.println("Before calling Emergencycall");
         Intent callIntent= new Intent(FallDetection.this, EmergencyCall.class);
-        callIntent.putExtra("username", username);
-        callIntent.putExtra("address", address);
+        callIntent.putExtra("userId", userId);
+        //callIntent.putExtra("address", address);
         System.out.println("Calling emergency phone + SMS");
         startActivity(callIntent);
         System.out.println("returned from emergeny cal");
