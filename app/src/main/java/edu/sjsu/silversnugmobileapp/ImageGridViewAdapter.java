@@ -1,7 +1,9 @@
 package edu.sjsu.silversnugmobileapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,20 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
 
 import static android.content.Context.AUDIO_SERVICE;
 
@@ -29,7 +44,11 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
     private ArrayList<ImageDetails> imageList;
     private int imageWidth;
     private int layout;
-    String phoneNumber;
+    String phoneNumber, photoName;
+
+    private RestClient restApiClient;
+    private Gson gson;
+
 
     public ImageGridViewAdapter(Context c, int layout, ArrayList<ImageDetails> imgList) {
         this.mContext = c;
@@ -84,6 +103,7 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
         ImageDetails imageDetails = imageList.get(position);
 
         holder.txtname.setText(imageDetails.getName());
+        photoName= imageDetails.getName();
         holder.txtrelation.setText(imageDetails.getRelationship());
        // holder.txtcontactnumber.setText(imageDetails.getContactNumber());
         phoneNumber=imageDetails.getContactNumber();
@@ -124,14 +144,47 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
                break;
 
            case R.id.button_delete:
-               deletePhoto();
-               break;
+               AlertDialog dialog =  new AlertDialog.Builder(view.getContext())
+                       .setTitle("Delete Photo")
+                       .setMessage("Are you sure you want to delete this Photo?")
+                       .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int which) {
+                             //  deletePhoto(photoName);
+                           }
+                       })
+                       // A null listener allows the button to dismiss the dialog and take no further action.
+                       .setNegativeButton(android.R.string.no, null)
+                       .setIcon(android.R.drawable.ic_dialog_alert)
+                       .show();
        }
+}
 
-    }
+  /*  public void deletePhoto(String photoName) {
 
-    public void deletePhoto()
-    {
+        restApiClient = new RestClient();
+        gson = new Gson();
 
-    }
+        String url = "/SilverSnug/PhotoGallery/deletePhoto?userId=" + "680cdb82-c044-4dd1-ae84-1a15e54ab502" +"&photoName="+photoName;
+        PhotoGalleryRequest request = new PhotoGalleryRequest();
+        try{
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            restApiClient.executePostAPI(mContext, url, jsonObject, new APICallback() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                    PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
+                    Log.i("PhotoGalleryActivity", response.toString());
+                    Toast.makeText(mContext, "Photo deleted successfully!", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onError(String message) {
+                    Log.i("PhotoGalleryActivity", message);
+                }
+            });
+
+        } catch (JSONException e) {
+            String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
+            Log.e("PhotoGalleryActivity", err);
+        }
+    }*/
 }
