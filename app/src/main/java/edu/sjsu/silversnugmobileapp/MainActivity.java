@@ -52,13 +52,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Bundle b =  i.getExtras();
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
-        Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
+        /*Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
         panicVcDetect.putExtra("userName", userResponse.getUserName());
         getApplicationContext().startService(panicVcDetect);
         //user_name = i.getStringExtra("userName");
 
         Intent intent=new Intent(MainActivity.this,LocationTracker.class);
         intent.putExtra("userName", userResponse.getUserName());
+
+        getApplicationContext().startService(intent);*/
         getApplicationContext().startService(intent);
 
         accelerometerManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.myprofile, menu);
         inflater.inflate(R.menu.logout, menu);
-        inflater.inflate(R.menu.deleteaccount, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             MainActivity.this.startActivity(intent);
         }
 
-        if(id== R.id.deleteaccount)
+        /*if(id== R.id.deleteaccount)
         {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle("Delete Account");
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
