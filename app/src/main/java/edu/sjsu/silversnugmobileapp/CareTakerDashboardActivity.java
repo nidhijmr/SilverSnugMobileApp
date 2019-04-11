@@ -71,4 +71,10 @@ public class CareTakerDashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void goTocareTakerViewProfile(View view) {
+        Intent intent = new Intent(CareTakerDashboardActivity.this, ViewProfile.class);
+        intent.putExtra("userResponse", userResponse);
+        CareTakerDashboardActivity.this.startActivity(intent);
+    }
+
     }
