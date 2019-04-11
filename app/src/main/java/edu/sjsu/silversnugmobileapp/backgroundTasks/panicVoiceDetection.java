@@ -92,27 +92,24 @@ public class panicVoiceDetection extends Service {
 
     private void runPrediction() {
         while (isRecording) {
-            inputData = new float[2000][1];
+            inputData = new float[16000][1];
             outputData = new float[1][2];
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 short[] buffer = new short[16000];
                 N = recorder.read(buffer,0,buffer.length);
                 for(int i=0, j=0;i<16000;i=i+8,j=j+1) {
-                    inputData[j][0] = (float) (buffer[i]+32768)/(32768*2);
+                    //inputData[j][0] = (float) (buffer[i]+32768)/(32768*2);
+                    inputData[j][0] = (float) (buffer[i])/(16384);
+
                 }
                 model.performAction(this.getAssets(), inputData, outputData);
-                Log.i("Panic-Data:  ",outputData[0][1]+" ----   "+outputData[0][0] );
-                if(outputData[0][1]>0.005){
+               //System.out.println("Panic-Data:  "+outputData[0][0]+" ----   "+outputData[0][1] );
+                if(outputData[0][0]>0.5){
                     SystemClock.sleep(3000);
-                    Log.i("Panic:  ", String.valueOf(outputData[0][1]));
+                    System.out.println("Panic Detected:  "+outputData[0][0]);
                     //sendPanic();
                 }
-
-//                if(outputData[0][1]>0.02){
-//                    SystemClock.sleep(3000);
-//                    //sendPanic();
-//                }
 
 
 
