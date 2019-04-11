@@ -68,6 +68,8 @@ public class EditPill extends AppCompatActivity {
 
         Intent i = getIntent();
         Bundle b = i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
     }
 
 

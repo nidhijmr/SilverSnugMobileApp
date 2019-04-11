@@ -133,8 +133,10 @@ public class PillBoxActivity extends AppCompatActivity {
                 List<PillBox> responseList = response.getPillBoxes();
                 labelsList.clear();
 
-                for (PillBox record : responseList)
-                    labelsList.add("PillName :" +record.getMedicineName()  + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
+                if(responseList != null) {
+                    for (PillBox record : responseList)
+                        labelsList.add("PillName : " + record.getMedicineName() + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
+                }
 
                 final RVAdapter adapter = new RVAdapter(labelsList);
                 rv.setAdapter(adapter);
@@ -270,6 +272,7 @@ public class PillBoxActivity extends AppCompatActivity {
     public void editPill(View view){
 
         Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
+        intent.putExtra("userResponse", userResponse);
         startActivity(intent);
 
 }

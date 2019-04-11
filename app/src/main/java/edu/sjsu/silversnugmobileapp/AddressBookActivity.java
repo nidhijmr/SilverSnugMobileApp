@@ -153,8 +153,8 @@ public class AddressBookActivity extends AppCompatActivity {
                         labelsList.add(record.getAddressName());
                         coordinatesList.add(new AddressBookCoordinates(record.getAddressName(), record.getLatitude(), record.getLongitude()));
                     }
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -199,7 +199,7 @@ public class AddressBookActivity extends AppCompatActivity {
 
         //Set Address Name
         if(!(addressBookNameEditText.getText().equals(null)))
-         request.setAddressName(addressBookNameEditText.getText().toString());
+         request.setAddressName(addressBookNameEditText.getText().toString().trim());
         else {
             Toast.makeText(getApplicationContext(), "Address Name cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("AddressBookActivity", "Address Name cannot be empty");
@@ -278,6 +278,7 @@ public class AddressBookActivity extends AppCompatActivity {
                     AddressBookResponse response = gson.fromJson(jsonResponse.toString(), AddressBookResponse.class);
                     Log.i("AddressBookActivity", response.toString());
                     Toast.makeText(getApplicationContext(), "Address deleted successfully!", Toast.LENGTH_LONG).show();
+                    loadAddressBookList();
                 }
 
                 @Override
