@@ -52,20 +52,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Bundle b =  i.getExtras();
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
-        /*Intent panicVcDetect  = new Intent(MainActivity.this, panicVoiceDetection.class);
-        panicVcDetect.putExtra("userName", userResponse.getUserName());
-        getApplicationContext().startService(panicVcDetect);
-        //user_name = i.getStringExtra("userName");
 
-        Intent intent=new Intent(MainActivity.this,LocationTracker.class);
-        intent.putExtra("userName", userResponse.getUserName());
+        if(userResponse != null && userResponse.getRole().equals("patient")) {
+            Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
+            panicVcDetect.putExtra("userName", userResponse.getUserName());
+            getApplicationContext().startService(panicVcDetect);
+            //user_name = i.getStringExtra("userName");
 
-        getApplicationContext().startService(intent);*/
-        getApplicationContext().startService(intent);
+            Intent intent = new Intent(MainActivity.this, LocationTracker.class);
+            intent.putExtra("userName", userResponse.getUserName());
+            getApplicationContext().startService(intent);
 
-        accelerometerManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        accelerometer = accelerometerManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        accelerometerManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+            accelerometerManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+            accelerometer = accelerometerManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            accelerometerManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+
+
     }
 
     @Override

@@ -102,11 +102,17 @@ public class panicVoiceDetection extends Service {
                     inputData[j][0] = (float) (buffer[i]+32768)/(32768*2);
                 }
                 model.performAction(this.getAssets(), inputData, outputData);
-
-                if(outputData[0][1]>0.02){
+                Log.i("Panic-Data:  ",outputData[0][1]+" ----   "+outputData[0][0] );
+                if(outputData[0][1]>0.005){
                     SystemClock.sleep(3000);
+                    Log.i("Panic:  ", String.valueOf(outputData[0][1]));
                     //sendPanic();
                 }
+
+//                if(outputData[0][1]>0.02){
+//                    SystemClock.sleep(3000);
+//                    //sendPanic();
+//                }
 
 
 

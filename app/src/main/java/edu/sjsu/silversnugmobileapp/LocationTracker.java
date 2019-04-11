@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -29,13 +31,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+
 
 public class LocationTracker extends Service implements ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     public LocationTracker() {
     }
-
+    private Geocoder geocoder;
+    private List<Address> addresses;
     private Context ctx;
     public static final String LOCATION_INTENT = "LocationIntent";
     private FusedLocationProviderClient fusedLocationClient;
@@ -45,6 +52,8 @@ public class LocationTracker extends Service implements ConnectionCallbacks, Goo
     JSONObject userLocationData = null;
     private KinesisRecorder kinesisRecorder;
     private String userName = "";
+    public static String address = "";
+    public static String finalAddress = "";
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -91,11 +100,11 @@ public class LocationTracker extends Service implements ConnectionCallbacks, Goo
                 Regions.US_EAST_1 // Region
         );
         String kinesisDirectory = "Alzm-kinesis";
-        kinesisRecorder = new KinesisRecorder(
-                this.getDir(kinesisDirectory, 0),
-                Regions.US_EAST_1,
-                credentialsProvider
-        );
+//        kinesisRecorder = new KinesisRecorder(
+//                this.getDir(kinesisDirectory, 0),
+//                Regions.US_EAST_1,
+//                credentialsProvider
+//        );
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -156,16 +165,9 @@ public class LocationTracker extends Service implements ConnectionCallbacks, Goo
                 e.printStackTrace();
             }
 
-            Log.i("JSON in MyService: ", userLocationData.toString());
+            Log.i("Location json is: ", userLocationData.toString());
 
-
-            String address = "";
-            address=""+ latitude + "/" + longitude;
-            Intent i = new Intent();
-            i.setAction(LOCATION_INTENT);
-            i.putExtra("location", address);
-            ctx.sendBroadcast(i);
-//          kinesis
+            //          kinesis
 //            new Thread(new Runnable() {
 //                @Override
 //                public void run() {
@@ -173,11 +175,34 @@ public class LocationTracker extends Service implements ConnectionCallbacks, Goo
 //                    kinesisRecorder.submitAllRecords();
 //                }
 //            }).start();
-            Log.i("Address changed to:", address);
+
+            finalAddress = "";
+            try {
+                geocoder = new Geocoder(this, Locale.getDefault());
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                if (addresses != null && addresses.size() > 0) {
+                    //for (int x = 0; x < addresses.get(0).getMaxAddressLineIndex(); x++) {
+                        finalAddress = addresses.get(0).getAddressLine(0) + " ";
+                    //}
+                    address = "" + latitude + ", " + longitude;
+                    Intent i = new Intent();
+                    i.setAction(LOCATION_INTENT);
+                    if (finalAddress != "")
+                        i.putExtra("location", finalAddress);
+                    else
+                        i.putExtra("location", address);
+                    ctx.sendBroadcast(i);
+
+                    Log.i("Address changed to:", address + " , " + finalAddress);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    @Override
+        @Override
     public void onConnectionSuspended(int i) {
         googleApiClient.connect();
     }

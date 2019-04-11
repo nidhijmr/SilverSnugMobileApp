@@ -1,5 +1,7 @@
 package edu.sjsu.silversnugmobileapp;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.Manifest;
@@ -24,10 +26,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.List;
+
 public class CurrentAddress extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     TextView txtLoc;
     Button ShowLocations;
     public GoogleApiClient googleApiClient;
+
+
 
     private static String[] PERMS_STORAGE = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -41,6 +47,10 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_address);
         txtLoc = findViewById(R.id.textAddress);
+        if(LocationTracker.finalAddress == "")
+            txtLoc.setText(LocationTracker.address);
+        else
+            txtLoc.setText(LocationTracker.finalAddress);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMS_STORAGE, 1);
@@ -107,7 +117,7 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(LocationTracker.LOCATION_INTENT)) {
                 if(intent.getExtras().getString("location").equals(null) || intent.getExtras().getString("location").equals("")) {
-                     txtLoc.setText("3000 Mission College Blvd,\n  Santa Clara, CA 95054");
+                     txtLoc.setText("325 E Tasman Dr, \n San Jose, CA 95134");
                 }
                 else
                     txtLoc.setText(intent.getExtras().getString("location"));
