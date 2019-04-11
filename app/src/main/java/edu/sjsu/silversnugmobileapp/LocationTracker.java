@@ -87,15 +87,15 @@ public class LocationTracker extends Service implements ConnectionCallbacks, Goo
         Log.i("LOCATION TRACKING:","LOCATION TRACKING Starting");
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                "", // Identity pool ID
+                "us-east-1:d91f3bc5-0ee7-43d2-ad64-7af1d14f6c03", // Identity pool ID
                 Regions.US_EAST_1 // Region
         );
-        String kinesisDirectory = "Alzm-kinesis";
-        kinesisRecorder = new KinesisRecorder(
-                this.getDir(kinesisDirectory, 0),
-                Regions.US_EAST_1,
-                credentialsProvider
-        );
+//        String kinesisDirectory = "Alzm-kinesis";
+//        kinesisRecorder = new KinesisRecorder(
+//                this.getDir(kinesisDirectory, 0),
+//                Regions.US_EAST_1,
+//                credentialsProvider
+//        );
 
         return super.onStartCommand(intent, flags, startId);
     }

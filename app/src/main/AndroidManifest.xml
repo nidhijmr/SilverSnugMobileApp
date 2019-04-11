@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value=""/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA5tCnMPgH8G3Jhgu62GAV8-QJCQV7F16k"/>
 
         <activity
             android:name=".UserLocationsMapsActivity"

@@ -1,5 +1,6 @@
 package edu.sjsu.silversnugmobileapp;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,9 @@ import java.util.List;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PillBox;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
@@ -45,8 +48,9 @@ public class PillBoxActivity extends AppCompatActivity {
     private RVAdapter adapter = null;
     private RecyclerView rv;
     private EditText pillnotesEditText;
-    private List<String> labelsList = new ArrayList<String>();
+    private List<String> labelsList = new ArrayList<>();
     private PillBoxResponse response;
+    private Gson gson;
     private TextView pillTextView;
     private UserResponse userResponse;
     private PillBox pillBox;
@@ -259,6 +263,7 @@ public class PillBoxActivity extends AppCompatActivity {
                     Log.i("PillBoxActivity", message);
                 }
             });
+
         } catch (JSONException e) {
             Log.e("PillBoxActivity", e.getMessage());
         }
