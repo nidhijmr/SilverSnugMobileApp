@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.amazonaws.ClientConfiguration;
@@ -36,7 +37,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PhotoGallery;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
 
-public class GetImageActivity extends AppCompatActivity {
+public class GetImageActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
     private ArrayList<Bitmap> images;
     private ArrayList<ImageDetails> imageDetails;
@@ -65,6 +66,7 @@ public class GetImageActivity extends AppCompatActivity {
         restClient = new RestClient();
         gson = new Gson();
 
+      //  imageGridview.setAdapter((ListAdapter) imageDetails);
         imageGridview.setLongClickable(true);
         imageGridview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -84,9 +86,7 @@ public class GetImageActivity extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-           // }
-       // }));
-                return false;
+                return true;
             }
         });
 
@@ -165,5 +165,25 @@ public class GetImageActivity extends AppCompatActivity {
             String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
             Log.e("PhotoGalleryActivity", err);
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        AlertDialog dialog =  new AlertDialog.Builder(view.getContext())
+                .setTitle("Delete Photo")
+                .setMessage("Are you sure you want to delete this photo?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ImageDetails photoSelectedToDelete = imageDetails.get(position);
+                        String photoName= photoSelectedToDelete.getName();
+                        deletePhoto(photoName);
+                        loadPhotoGallery();
+                    }
+                })
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+        return true;
     }
 }

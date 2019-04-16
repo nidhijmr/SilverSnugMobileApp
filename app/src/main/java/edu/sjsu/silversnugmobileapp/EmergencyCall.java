@@ -47,7 +47,7 @@ public class EmergencyCall extends AppCompatActivity {
         restClient = new RestClient();
         gson = new Gson();
 
-       getEmergencyContactNumber();
+        getEmergencyContactNumber();
 
         if (!phoneNumber.equals("")) {
 

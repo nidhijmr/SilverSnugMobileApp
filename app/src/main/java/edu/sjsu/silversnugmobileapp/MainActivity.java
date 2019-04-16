@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.i("userResponse: ", userResponse.toString());
 
         if(userResponse != null && userResponse.getRole().equals("patient")) {
-            Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
-            panicVcDetect.putExtra("userName", userResponse.getUserName());
-            getApplicationContext().startService(panicVcDetect);
+           // Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
+           // panicVcDetect.putExtra("userName", userResponse.getUserName());
+           // getApplicationContext().startService(panicVcDetect);
             //user_name = i.getStringExtra("userName");
 
             Intent intent = new Intent(MainActivity.this, LocationTracker.class);

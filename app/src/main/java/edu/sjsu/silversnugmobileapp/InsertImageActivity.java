@@ -76,7 +76,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
         erelation = (EditText) findViewById(R.id.editText4);
         econtactNumber = (EditText) findViewById(R.id.editText5);
         choosePic.setOnClickListener(this);
-        //username=getIntent().getExtras().getString("username");
         restApiClient = new RestClient();
         gson = new Gson();
         save.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +135,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-      //  request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
         request.setUserId(userId);
 
         System.out.println("ImagePath=" + imagePath);
@@ -225,7 +223,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     getApplicationContext(),
-                    "", // Identity pool ID
+                    "us-east-1:fb829df4-de74-49c0-b8b5-cb74a6b7e584", // Identity pool ID
                     Regions.US_EAST_1 // Region
             );
 
