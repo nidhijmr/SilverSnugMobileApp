@@ -108,7 +108,6 @@
             android:label="@string/title_activity_get_image"></activity>
         <activity android:name=".SettingsActivity" />
 
-
         <activity
             android:name=".FallDetection"
             android:label="FallDetection"></activity>

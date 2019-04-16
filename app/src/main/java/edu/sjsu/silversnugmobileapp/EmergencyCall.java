@@ -28,7 +28,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.EmergencyContactRes
 
 
 public class EmergencyCall extends AppCompatActivity {
-    String phoneNumber = "+14085642239", address, userId;
+    String phoneNumber = "", address, userId;
     String message;
     TelephonyManager manager;
     private RestClient restClient;
@@ -47,7 +47,7 @@ public class EmergencyCall extends AppCompatActivity {
         restClient = new RestClient();
         gson = new Gson();
 
-       // getEmergencyContactNumber();
+       getEmergencyContactNumber();
 
         if (!phoneNumber.equals("")) {
 
@@ -60,7 +60,7 @@ public class EmergencyCall extends AppCompatActivity {
         }
     }
 
-   /* public void getEmergencyContactNumber()
+    public void getEmergencyContactNumber()
     {
         String url = "/SilverSnug/FallDetection/getEmergencyContact?userId=" + userId;
 
@@ -85,7 +85,7 @@ public class EmergencyCall extends AppCompatActivity {
             }
         });
 
-    } */
+    }
 
 
     public void sendMessage(String message, String phoneNumber) {
