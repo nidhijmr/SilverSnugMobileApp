@@ -6,17 +6,19 @@ public class AddressBook {
     private String addressName;
     private double latitude;
     private double longitude;
+    private String address;
 
     public AddressBook(){
 
     }
 
-    public AddressBook(String userId, String addressId, String addressName, double latitude, double longitude) {
+    public AddressBook(String userId, String addressId, String addressName, double latitude, double longitude, String address) {
         this.userId = userId;
         this.addressId = addressId;
         this.addressName = addressName;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.address = address;
     }
 
     public String getUserId() {
@@ -58,5 +60,14 @@ public class AddressBook {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }
 
