@@ -3,7 +3,6 @@ package edu.sjsu.silversnugmobileapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,12 +17,9 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.util.List;
-
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.EmergencyContactNumber;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.EmergencyContactResponse;
 
 
@@ -49,15 +45,7 @@ public class EmergencyCall extends AppCompatActivity {
 
         getEmergencyContactNumber();
 
-        if (!phoneNumber.equals("")) {
 
-            Log.i("TAG", phoneNumber);
-            System.out.println("Phone number " + phoneNumber);
-            System.out.println("dialing emergency contact started");
-            DialEmergency();
-            System.out.println("dialing emergency contact ended");
-
-        }
     }
 
     public void getEmergencyContactNumber()
@@ -69,13 +57,23 @@ public class EmergencyCall extends AppCompatActivity {
         restClient.executeGetAPI(getApplicationContext(), url, new APICallback() {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
+                Log.i("EmergencyCall API: ", jsonResponse.toString());
                 EmergencyContactResponse response = gson.fromJson(jsonResponse.toString(), EmergencyContactResponse.class);
                 System.out.println(response);
-                Log.i("EmergencyCall", response.toString());
+                Log.i("EmergencyCall Obj: ", response.toString());
 
-                EmergencyContactNumber emergencyResponse = response.getEmergencyContactNumber();
+                phoneNumber= response.getEmergencyContactNumber();
+                Log.i("phoneNumber: ", phoneNumber);
 
-                phoneNumber= emergencyResponse.getContactNumber();
+                if (!phoneNumber.equals("")) {
+
+                    Log.i("TAG", phoneNumber);
+                    System.out.println("Phone number " + phoneNumber);
+                    System.out.println("dialing emergency contact started");
+                    DialEmergency();
+                    System.out.println("dialing emergency contact ended");
+
+                }
             }
 
             @Override

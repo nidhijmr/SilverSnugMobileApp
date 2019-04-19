@@ -153,6 +153,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
                 public void onSuccess(JSONObject jsonResponse) {
                     PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                     Log.i("PhotoGalleryActivity", response.toString());
+                    Toast.makeText(getApplicationContext(), "Photo added to gallery successfully!", Toast.LENGTH_LONG).show();
                     Intent getImageIntent = new Intent(InsertImageActivity.this, GetImageActivity.class);
                     getImageIntent.putExtra("userId", userId);
                     startActivity(getImageIntent);
@@ -223,7 +224,7 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
             CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                     getApplicationContext(),
-                    "us-east-1:fb829df4-de74-49c0-b8b5-cb74a6b7e584", // Identity pool ID
+                    "", // Identity pool ID
                     Regions.US_EAST_1 // Region
             );
 

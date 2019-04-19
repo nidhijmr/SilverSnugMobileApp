@@ -114,6 +114,10 @@
         <activity
             android:name=".EmergencyCall"
             android:label="EmergencyCall"></activity>
+        <activity
+            android:name=".EditPhoto"
+            android:label="EditPhoto" >
+        </activity>
     </application>
 
 </manifest>
