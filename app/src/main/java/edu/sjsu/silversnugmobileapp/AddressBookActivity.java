@@ -235,7 +235,7 @@ public class AddressBookActivity extends AppCompatActivity implements UIListner 
         address_parse = addressBookAddressEditText.getText().toString().replaceAll(" ", "+");
         address_parse = address_parse.replaceAll("#", "apt:");
 
-        String geocoding_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address_parse + "&key=AIzaSyA5tCnMPgH8G3Jhgu62GAV8-QJCQV7F16k";
+        String geocoding_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address_parse + "&key=<Google_API_Key>";
         Object result = new GetLatLongOperation(new GetLatLongOperation.AsynResponse() {
             @Override
             public void processFinish(String output) {
