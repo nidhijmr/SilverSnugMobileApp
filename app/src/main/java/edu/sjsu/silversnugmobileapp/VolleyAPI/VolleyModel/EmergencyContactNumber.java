@@ -3,7 +3,7 @@ package edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel;
 public class EmergencyContactNumber {
 
     private String userId;
-    private String contactNumber;
+    private String emergencyContactNumber;
 
 
     public EmergencyContactNumber()
@@ -11,10 +11,10 @@ public class EmergencyContactNumber {
 
     }
 
-    public EmergencyContactNumber(String userId, String contactNumber)
+    public EmergencyContactNumber(String userId, String emergencyContactNumber)
     {
         this.userId = userId;
-        this.contactNumber = contactNumber;
+        this.emergencyContactNumber = emergencyContactNumber;
     }
 
     public String getUserId() {
@@ -25,11 +25,11 @@ public class EmergencyContactNumber {
         this.userId = userId;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public String getEmergencyContactNumber() {
+        return emergencyContactNumber;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setEmergencyContactNumber(String emergencyContactNumber) {
+        this.emergencyContactNumber = emergencyContactNumber;
     }
 }
