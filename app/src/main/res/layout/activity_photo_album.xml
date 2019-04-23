@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Add pictures"
+                    android:textColor="#E57373"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
@@ -99,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Gallery"
+                    android:textColor="#E57373"
                     android:textStyle="bold"
                     android:textSize="18dp"/>
 

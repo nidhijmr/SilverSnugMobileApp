@@ -76,7 +76,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
         erelation = (EditText) findViewById(R.id.editText4);
         econtactNumber = (EditText) findViewById(R.id.editText5);
         choosePic.setOnClickListener(this);
-        //username=getIntent().getExtras().getString("username");
         restApiClient = new RestClient();
         gson = new Gson();
         save.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +135,6 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
-      //  request.setUserId("680cdb82-c044-4dd1-ae84-1a15e54ab502");
         request.setUserId(userId);
 
         System.out.println("ImagePath=" + imagePath);
@@ -155,6 +153,10 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
                 public void onSuccess(JSONObject jsonResponse) {
                     PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                     Log.i("PhotoGalleryActivity", response.toString());
+                    Toast.makeText(getApplicationContext(), "Photo added to gallery successfully!", Toast.LENGTH_LONG).show();
+                    Intent getImageIntent = new Intent(InsertImageActivity.this, GetImageActivity.class);
+                    getImageIntent.putExtra("userId", userId);
+                    startActivity(getImageIntent);
                 }
 
                 @Override

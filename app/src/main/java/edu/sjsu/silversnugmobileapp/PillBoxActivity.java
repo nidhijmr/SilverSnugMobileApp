@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -35,8 +36,9 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
 import edu.sjsu.silversnugmobileapp.utilities.RecyclerTouchListener;
+import edu.sjsu.silversnugmobileapp.utilities.UIListner;
 
-public class PillBoxActivity extends AppCompatActivity {
+public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
     ListView lvItems;
     ArrayAdapter<String> mAdapter;
@@ -99,6 +101,11 @@ public class PillBoxActivity extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
+            }
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+                return false;
             }
         }));
                 loadPillBoxList();
@@ -272,17 +279,20 @@ public class PillBoxActivity extends AppCompatActivity {
 
     }
 
+//    public void editPill(View view){
+//
+//        Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
+//        intent.putExtra("userResponse", userResponse);
+//        startActivity(intent);
+//
+//}
 
-
-    public void editPill(View view){
-
+    @Override
+    public void editFunction(int i) {
         Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
         intent.putExtra("userResponse", userResponse);
         startActivity(intent);
-
-}
-
-
+    }
 }
 
 

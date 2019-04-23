@@ -4,35 +4,58 @@ import java.util.List;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.EmergencyContactNumber;
 
-public class EmergencyContactResponse {
+public class EmergencyContactResponse extends  GenericResponse{
 
     private static final long serialVersionUID = 3543385351755692064L;
-    private EmergencyContactNumber emergencyContactNumber;
+    private String userId;
+    private String emergencyContactNumber;
+
+
+
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getEmergencyContactNumber() {
+        return emergencyContactNumber;
+    }
+
+    public void setEmergencyContactNumber(String emergencyContactNumber) {
+        this.emergencyContactNumber = emergencyContactNumber;
+    }
 
     public EmergencyContactResponse()
     {
 
     }
 
-    public EmergencyContactResponse(EmergencyContactNumber emergencyContactNumber)
+    public EmergencyContactResponse(String status, String message, String userId, String emergencyContactNumber)
     {
 
-        super();
+        super(status,message);
+        this.userId = userId;
         this.emergencyContactNumber = emergencyContactNumber;
+
     }
 
-    public EmergencyContactNumber getEmergencyContactNumber() {
-        return emergencyContactNumber;
-    }
 
-    public void setEmergencyContactNumber(EmergencyContactNumber emergencyContactNumber) {
-        this.emergencyContactNumber = emergencyContactNumber;
-    }
+
 
     @Override
     public String toString() {
         return "EmergencyContactResponse{" +
-                "emergencyContactNumber=" + emergencyContactNumber +
+                "userId='" + userId + '\'' +
+                ", emergencyContactNumber='" + emergencyContactNumber + '\'' +
+                ", status='" + status + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
+
+
 }

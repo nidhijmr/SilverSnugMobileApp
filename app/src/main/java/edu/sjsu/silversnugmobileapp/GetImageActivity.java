@@ -1,13 +1,19 @@
 package edu.sjsu.silversnugmobileapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
@@ -18,6 +24,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PhotoGallery;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
 
 public class GetImageActivity extends AppCompatActivity {
@@ -39,7 +47,6 @@ public class GetImageActivity extends AppCompatActivity {
     private GridView imageGridview;
     String userId;
     ImageView imageView;
-    private static final String AWS_BUCKET = "silversnugphotos";
     private static final String Key = "photos";
 
     Context ctx;
@@ -52,12 +59,10 @@ public class GetImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_image);
         imageGridview =(GridView) findViewById(R.id.my_grid_view);
         imageDetails = new ArrayList<>();
-
         userId=getIntent().getExtras().getString("userId");
         ctx = this;
         restClient = new RestClient();
         gson = new Gson();
-
 
         loadPhotoGallery();
     }
@@ -86,8 +91,9 @@ public class GetImageActivity extends AppCompatActivity {
                     imageDetails.add(new ImageDetails(name,contactNumber,relationship,imagePath));
                 }
                 //adapter.notifyDataSetChanged();
-                adapter = new ImageGridViewAdapter(ctx,R.layout.image_items, imageDetails);
+                adapter = new ImageGridViewAdapter(ctx,R.layout.image_items, imageDetails, userId);
                 imageGridview.setAdapter(adapter);
+
             }
 
                 @Override public void onError(String message) {
@@ -95,6 +101,7 @@ public class GetImageActivity extends AppCompatActivity {
                 }
             });
     }
+
 
     @Override
     protected void onResume() {
@@ -106,4 +113,5 @@ public class GetImageActivity extends AppCompatActivity {
         super.onRestart();
         loadPhotoGallery();
     }
+
 }
