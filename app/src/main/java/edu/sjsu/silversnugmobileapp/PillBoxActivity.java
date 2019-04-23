@@ -145,7 +145,7 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
                 if (responseList != null) {
                     for (PillBox record : responseList)
-                        labelsList.add("PillName : " + record.getMedicineName() + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
+                        labelsList.add("PillName:" +record.getMedicineName() + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
                 }
 
                 final RVAdapter adapter = new RVAdapter(labelsList);
@@ -322,10 +322,8 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
         final PillBoxRequest request = new PillBoxRequest();
 
-        //Set AddressId
         request.setPillBoxId(pillBoxId);
 
-        //Set Address Name
         if(!(pilldosageEditText.getText().equals(null)))
             request.setDosage(pilldosageEditText.getText().toString().trim());
         else {
@@ -334,7 +332,6 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-        //Set Address
         if(!(pillpotencyEditText.getText().equals(null)))
             request.setPotency(pillpotencyEditText.getText().toString().trim());
         else {
@@ -343,7 +340,6 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-        //Set Address
         if(!(pillnotesEditText.getText().equals(null)))
             request.setNotes(pillnotesEditText.getText().toString().trim());
         else {
