@@ -30,7 +30,7 @@ public class ViewProfile extends AppCompatActivity {
     private Gson gson;
     private RestClient restApiClient;
     TextView userName, emailID, emergContactNumber, firstName, lastName, password, phoneNumber, role;
-    Button EditProfile;
+    Button EditProfile, Back;
     UserResponse userResponse;
     String user_name;
 
@@ -68,6 +68,21 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
 
+        Back = findViewById(R.id.btnBack);
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userResponse.getRole().equals("patient")) {
+                    Intent intent = new Intent(ViewProfile.this, MainActivity.class);
+                    intent.putExtra("userResponse", userResponse);
+                    ViewProfile.this.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ViewProfile.this, CareTakerDashboardActivity.class);
+                    intent.putExtra("userResponse", userResponse);
+                    ViewProfile.this.startActivity(intent);
+                }
+            }
+        });
         restApiClient = new RestClient();
         gson = new Gson();
 
@@ -106,5 +121,6 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
     }
+
 
 }
