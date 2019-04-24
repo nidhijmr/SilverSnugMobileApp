@@ -8,9 +8,12 @@
 
     <TextView
         android:id="@+id/textAddress"
-        android:layout_width="185dp"
-        android:layout_height="189dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:text="hello"
+        android:textColor="#E57373"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="138dp"
         tools:layout_editor_absoluteY="264dp"
         tools:text="hello" />

@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
            // getApplicationContext().startService(panicVcDetect);
             //user_name = i.getStringExtra("userName");
 
-            Intent intent = new Intent(MainActivity.this, LocationTracker.class);
-            intent.putExtra("userName", userResponse.getUserName());
-            getApplicationContext().startService(intent);
+            //Intent intent = new Intent(MainActivity.this, LocationTracker.class);
+            //intent.putExtra("userName", userResponse.getUserName());
+            //getApplicationContext().startService(intent);
 
             accelerometerManager = (SensorManager)getSystemService(SENSOR_SERVICE);
             accelerometer = accelerometerManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

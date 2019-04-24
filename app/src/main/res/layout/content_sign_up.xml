@@ -106,31 +106,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profileImageSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="412dp"
-        android:text="Profile Image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+    <!--android:id="@+id/profileImageSignUp"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="@color/colorAccent"-->
+    <!--android:fontFamily="sans-serif-medium"-->
+    <!--android:textSize="20sp"-->
+    <!--android:textStyle="italic"-->
+    <!--android:layout_marginStart="48dp"-->
+    <!--android:layout_marginTop="412dp"-->
+    <!--android:text="Profile Image"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/roleSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="420dp"
         android:fontFamily="sans-serif-medium"
+        android:text="Role"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:textColor="@color/colorAccent"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="464dp"
-        android:text="Role"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -207,22 +207,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtprofileImageProfileSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="412dp"
-        android:text="profileImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtroleProfileSignUp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="240dp"
-        android:layout_marginTop="464dp"
+        android:layout_marginTop="420dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

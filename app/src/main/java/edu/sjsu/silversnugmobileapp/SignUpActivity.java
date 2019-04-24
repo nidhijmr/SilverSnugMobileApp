@@ -25,7 +25,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 public class SignUpActivity extends AppCompatActivity {
     private Gson gson;
     private RestClient restApiClient;
-    TextView userNameSignUp, emailIDSignUp, emergContactNumberSignUp, firstNameSignUp, lastNameSignUp, passwordSignUp, phoneNumberSignUp, roleSignUp, profileImageProfileSignUp;
+    TextView userNameSignUp, emailIDSignUp, emergContactNumberSignUp, firstNameSignUp, lastNameSignUp, passwordSignUp, phoneNumberSignUp, roleSignUp;
     UserResponse userResponse;
     UserRequest userRequest;
     Button CancelSignUp, SaveSignUp;
@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordSignUp = findViewById(R.id.txtpasswordProfileSignUp);
         phoneNumberSignUp = findViewById(R.id.txtphoneNumberProfileSignUp);
         roleSignUp = findViewById(R.id.txtroleProfileSignUp);
-        profileImageProfileSignUp = findViewById(R.id.txtprofileImageProfileSignUp);
+        //profileImageProfileSignUp = findViewById(R.id.txtprofileImageProfileSignUp);
         SaveSignUp = findViewById(R.id.SaveSignUp);
         CancelSignUp = findViewById(R.id.CancelSignUp);
 
@@ -80,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
             userObject.put("lastName", lastNameSignUp.getText());
             userObject.put("password", passwordSignUp.getText());
             userObject.put("phoneNumber", phoneNumberSignUp.getText());
-            userObject.put("profileImage", profileImageProfileSignUp.getText());
+            //userObject.put("profileImage", profileImageProfileSignUp.getText());
             userObject.put("role", roleSignUp.getText());
         } catch (JSONException e) {
             e.printStackTrace();

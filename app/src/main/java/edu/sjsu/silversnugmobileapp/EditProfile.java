@@ -29,7 +29,7 @@ public class EditProfile extends AppCompatActivity {
     private static ObjectMapper mapper = new ObjectMapper();
     private Gson gson;
     private RestClient restApiClient;
-    TextView userNameEdit, emailIDEdit, emergContactNumberEdit, firstNameEdit, lastNameEdit, passwordEdit, phoneNumberEdit, roleEdit, profileImageProfileEdit;
+    TextView userNameEdit, emailIDEdit, emergContactNumberEdit, firstNameEdit, lastNameEdit, passwordEdit, phoneNumberEdit, roleEdit;
     UserResponse userResponse;
     UserRequest userRequest;
     Button Cancel, Save;
@@ -58,7 +58,7 @@ public class EditProfile extends AppCompatActivity {
         passwordEdit = findViewById(R.id.txtpasswordProfileEdit);
         phoneNumberEdit = findViewById(R.id.txtphoneNumberProfileEdit);
         roleEdit = findViewById(R.id.txtroleProfileEdit);
-        profileImageProfileEdit = findViewById(R.id.txtprofileImageProfileEdit);
+        //profileImageProfileEdit = findViewById(R.id.txtprofileImageProfileEdit);
         Save = findViewById(R.id.Save);
         Cancel = findViewById(R.id.Cancel);
 
@@ -115,7 +115,7 @@ public class EditProfile extends AppCompatActivity {
             userObject.put("lastName", lastNameEdit.getText());
             userObject.put("password", passwordEdit.getText());
             userObject.put("phoneNumber", phoneNumberEdit.getText());
-            userObject.put("profileImage", profileImageProfileEdit.getText());
+            // userObject.put("profileImage", profileImageProfileEdit.getText());
             userObject.put("role", roleEdit.getText());
         } catch (JSONException e) {
             e.printStackTrace();
