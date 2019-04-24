@@ -106,31 +106,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profileImage"
-        android:layout_width="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="412dp"
-        android:text="Profile Image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/profileImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:fontFamily="sans-serif-medium"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textStyle="italic"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:layout_marginStart="48dp"-->
+        <!--android:layout_marginTop="412dp"-->
+        <!--android:text="Profile Image"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/role"
         android:layout_width="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="464dp"
+        android:layout_marginTop="412dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Role"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,25 +214,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtprofileImageProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="216dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="412dp"
-        android:text="profileImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/txtprofileImageProfile"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginStart="216dp"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:layout_marginTop="412dp"-->
+        <!--android:text="profileImage"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/txtroleProfile"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="220dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="464dp"
+        android:layout_marginTop="420dp"
         android:text=""
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -240,11 +240,23 @@
         android:id="@+id/EditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:textColor="@color/colorAccent"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="488dp"
         android:background="@color/colorPrimary"
-        android:layout_marginTop="524dp"
         android:text="Edit Profile"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="488dp"
+        android:text="Back"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
