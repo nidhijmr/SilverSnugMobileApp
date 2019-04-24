@@ -3,7 +3,7 @@
     <string name="title_activity_address_book">Address Book</string>
     <string name="title_activity_photo_album">PhotoAlbumActivity</string>
     <string name="title_activity_pill_box">PillBoxActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Silversnug</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
