@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     boolean callFlag=true;
     GPSLocation gps;
     String user_name;
-
     
     UserResponse userResponse;
 
