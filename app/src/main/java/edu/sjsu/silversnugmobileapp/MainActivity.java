@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AlertDialog;
 
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.backgroundTasks.panicVoiceDetection;
 
@@ -36,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     boolean callFlag=true;
     GPSLocation gps;
     String user_name;
-    
+    Button alert;
+
     UserResponse userResponse;
 
     @Override
@@ -48,8 +52,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Intent i = getIntent();
         Bundle b =  i.getExtras();
+        alert=(Button)findViewById(R.id.alert);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm_sound);
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
+
+        alert.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v) {
+                mp.start();
+            }
+        });
+
 
         if(userResponse != null && userResponse.getRole().equals("patient")) {
            // Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
@@ -69,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
