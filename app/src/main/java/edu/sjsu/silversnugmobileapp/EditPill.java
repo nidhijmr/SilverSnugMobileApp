@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PillBox;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.UserRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
@@ -132,4 +133,6 @@ public class EditPill extends AppCompatActivity {
             Log.e("PillBoxActivity", e.getMessage());
         }
     }
+
+
 }

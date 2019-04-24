@@ -55,6 +55,8 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
     private Gson gson;
     private TextView pillTextView;
     private UserResponse userResponse;
+    private List<PillBox> responseList = new ArrayList<>();
+    public boolean subelement = false;
     private PillBox pillBox;
 
     @Override
@@ -82,7 +84,7 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
             @Override
             public void onLongClick(View view, final int position) {
-                AlertDialog dialog =  new AlertDialog.Builder(view.getContext())
+                AlertDialog dialog = new AlertDialog.Builder(view.getContext())
                         .setTitle("Delete Pill")
                         .setMessage("Are you sure you want to delete this pill?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -108,13 +110,14 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
                 return false;
             }
         }));
-                loadPillBoxList();
+        loadPillBoxList();
         Intent i = getIntent();
-        Bundle b =  i.getExtras();
-        userResponse =  (UserResponse)b.get("userResponse");
+        Bundle b = i.getExtras();
+        userResponse = (UserResponse) b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -128,10 +131,10 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
     }
 
     public void loadPillBoxList() {
-        if(userResponse==null){
+        if (userResponse == null) {
             Intent i = getIntent();
-            Bundle b =  i.getExtras();
-            userResponse =  (UserResponse)b.get("userResponse");
+            Bundle b = i.getExtras();
+            userResponse = (UserResponse) b.get("userResponse");
             Log.i("userResponse: ", userResponse.toString());
         }
         String url = "/SilverSnug/PillBox/getPill?userId=" + userResponse.getUserId();
@@ -141,12 +144,12 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
                 PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
                 Log.i("PillBoxActivity", response.toString());
 
-                List<PillBox> responseList = response.getPillBoxes();
+                responseList = response.getPillBoxes();
                 labelsList.clear();
 
-                if(responseList != null) {
+                if (responseList != null) {
                     for (PillBox record : responseList)
-                        labelsList.add("PillName : " + record.getMedicineName() + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
+                        labelsList.add("PillName:" +record.getMedicineName() + '\n' + "PillDosage : " + record.getDosage() + '\n' + "PillPotency : " + record.getPotency() + '\n' + "PillNotes : " + record.getNotes());
                 }
 
                 final RVAdapter adapter = new RVAdapter(labelsList);
@@ -159,45 +162,45 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
                 Log.i("PillBoxActivity", message);
             }
-    });
-        }
+        });
+    }
 
 
-        public void addPillBox(View view) {
-            LinearLayout layout = new LinearLayout(this);
-            layout.setOrientation(LinearLayout.VERTICAL);
-            PillBoxRequest request = new PillBoxRequest();
+    public void addPillBox(View view) {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        PillBoxRequest request = new PillBoxRequest();
 
-            pillnameEditText = new EditText(this);
-            pilldosageEditText = new EditText(this);
-            pillpotencyEditText=new EditText(this);
-            pillnotesEditText=new EditText(this);
-            pillnameEditText.setHint("Add Pill Name");
-            layout.addView(pillnameEditText);
-            pillpotencyEditText.setHint("Add potency");
-            layout.addView(pillpotencyEditText);
-            pilldosageEditText.setHint("Add dosage");
-            layout.addView(pilldosageEditText);
-            pillnotesEditText.setHint("Add notes");
-            layout.addView(pillnotesEditText);
+        pillnameEditText = new EditText(this);
+        pilldosageEditText = new EditText(this);
+        pillpotencyEditText = new EditText(this);
+        pillnotesEditText = new EditText(this);
+        pillnameEditText.setHint("Add Pill Name");
+        layout.addView(pillnameEditText);
+        pillpotencyEditText.setHint("Add potency");
+        layout.addView(pillpotencyEditText);
+        pilldosageEditText.setHint("Add dosage");
+        layout.addView(pilldosageEditText);
+        pillnotesEditText.setHint("Add notes");
+        layout.addView(pillnotesEditText);
 
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setView(layout)
-                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            addPill();
-                        }
-                    })
-                    .setNegativeButton("Cancel", null).create();
-            dialog.show();
-        }
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(layout)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        addPill();
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
+    }
 
 
     public void addPill() {
         String url = "/SilverSnug/PillBox/addPill";
         final PillBoxRequest request = new PillBoxRequest();
-        if(!(pillnameEditText.getText().equals(null)))
+        if (!(pillnameEditText.getText().equals(null)))
             request.setMedicineName(pillnameEditText.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "`Pill Name cannot be empty", Toast.LENGTH_LONG).show();
@@ -205,7 +208,7 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-        if(!(pilldosageEditText.getText().equals(null)))
+        if (!(pilldosageEditText.getText().equals(null)))
             request.setDosage(pilldosageEditText.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "`Pill Dosage cannot be empty", Toast.LENGTH_LONG).show();
@@ -213,7 +216,7 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-        if(!(pillpotencyEditText.getText().equals(null)))
+        if (!(pillpotencyEditText.getText().equals(null)))
             request.setPotency(pillpotencyEditText.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "`Pill Potency cannot be empty", Toast.LENGTH_LONG).show();
@@ -221,7 +224,7 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-        if(!(pillnotesEditText.getText().equals(null)))
+        if (!(pillnotesEditText.getText().equals(null)))
             request.setNotes(pillnotesEditText.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "`Pill notes cannot be empty", Toast.LENGTH_LONG).show();
@@ -253,9 +256,9 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
     public void removePill(String medicineName) {
         System.out.print(medicineName);
-        String url = "/SilverSnug/PillBox/deletePill?userId=" + userResponse.getUserId() +"&medicineName="+medicineName;
+        String url = "/SilverSnug/PillBox/deletePill?userId=" + userResponse.getUserId() + "&medicineName=" + medicineName;
         PillBoxRequest request = new PillBoxRequest();
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
             System.out.print(jsonObject);
             restApiClient.executePostAPI(getApplicationContext(), url, jsonObject, new APICallback() {
@@ -279,21 +282,105 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
     }
 
-//    public void editPill(View view){
-//
-//        Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
-//        intent.putExtra("userResponse", userResponse);
-//        startActivity(intent);
-//
-//}
-
     @Override
-    public void editFunction(int i) {
-        Intent intent = new Intent(PillBoxActivity.this, EditPill.class);
-        intent.putExtra("userResponse", userResponse);
-        startActivity(intent);
+    public void editFunction(int position) {
+        subelement = true;
+
+        System.out.print(responseList);
+        final PillBox pillToEdit = responseList.get(position);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        pilldosageEditText = new EditText(this);
+        pillpotencyEditText = new EditText(this);
+        pillnotesEditText = new EditText(this);
+
+
+        pilldosageEditText.setHint("Pill Dosage");
+        pilldosageEditText.setText(pillToEdit.getDosage());
+        layout.addView(pilldosageEditText);
+
+        pillpotencyEditText.setHint("Potency");
+        pillpotencyEditText.setText(pillToEdit.getPotency());
+        layout.addView(pillpotencyEditText);
+
+        pillnotesEditText.setHint("Notes");
+        pillnotesEditText.setText(pillToEdit.getNotes());
+        layout.addView(pillnotesEditText);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(layout)
+                .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        editPillBox(pillToEdit.getPillBoxId());
+                    }
+                })
+                .setNegativeButton("Cancel", null).create();
+        dialog.show();
+
+
     }
-}
+
+    public void editPillBox(String pillBoxId) {
+
+
+        final PillBoxRequest request = new PillBoxRequest();
+
+        request.setPillBoxId(pillBoxId);
+
+        if(!(pilldosageEditText.getText().equals(null)))
+            request.setDosage(pilldosageEditText.getText().toString().trim());
+        else {
+            Toast.makeText(getApplicationContext(), "Dosage Name cannot be empty", Toast.LENGTH_LONG).show();
+            Log.e("PillBoxActivity", "Dosage Name cannot be empty");
+            return;
+        }
+
+        if(!(pillpotencyEditText.getText().equals(null)))
+            request.setPotency(pillpotencyEditText.getText().toString().trim());
+        else {
+            Toast.makeText(getApplicationContext(), "Potency cannot be empty", Toast.LENGTH_LONG).show();
+            Log.e("PillBoxActivity", "Potency cannot be empty");
+            return;
+        }
+
+        if(!(pillnotesEditText.getText().equals(null)))
+            request.setNotes(pillnotesEditText.getText().toString().trim());
+        else {
+            Toast.makeText(getApplicationContext(), "Notes cannot be empty", Toast.LENGTH_LONG).show();
+            Log.e("PillBoxActivity", "Notes cannot be empty");
+            return;
+        }
+
+                //Set UserID
+                request.setUserId(userResponse.getUserId());
+
+                //Call to POST REST API to save New PillBox
+                try {
+                    JSONObject jsonObject = new JSONObject(gson.toJson(request));
+                    restApiClient.executePostAPI(getApplicationContext(), "/SilverSnug/PillBox/editPill", jsonObject, new APICallback() {
+                        @Override
+                        public void onSuccess(JSONObject jsonResponse) {
+                            PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
+                            Log.i("PillBoxActivity", response.toString());
+                            loadPillBoxList();
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            Log.i("PillBoxActivity", message);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    Log.e("PillBoxActivity", e.getMessage());
+                }
+
+            }
+        }
+
+
 
 
 

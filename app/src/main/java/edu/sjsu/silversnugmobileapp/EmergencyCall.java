@@ -123,6 +123,7 @@ public class EmergencyCall extends AppCompatActivity {
         audioManager.setSpeakerphoneOn(true);
         System.out.println("CAll activity – Start");
         startActivity(callIntent1);
+
         System.out.println("CAll activity – End");
         System.out.println("SMS activity – Start");
 
