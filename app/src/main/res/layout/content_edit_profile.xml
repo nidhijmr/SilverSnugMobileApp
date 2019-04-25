@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="160dp"
         android:text="Emergency \n Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +100,7 @@
         android:textStyle="italic"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="354dp"
         android:text="PhoneNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="400dp"
         android:fontFamily="sans-serif-medium"
         android:text="Role"
         android:textColor="@color/colorAccent"
@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="72dp"
         android:fontFamily="sans-serif-medium"
         android:text=""
         android:textColor="@color/colorAccent"
@@ -173,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="214dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -183,7 +183,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="250dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -224,7 +224,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="216dp"
-        android:layout_marginTop="404dp"
+        android:layout_marginTop="400dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

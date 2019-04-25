@@ -14,6 +14,7 @@ import org.json.JSONObject;
 public class RestClient {
 
     private final String BASE_URL = "http://ec2-18-234-100-52.compute-1.amazonaws.com:8080"; //Local host URL
+    //private final String BASE_URL = "http://10.0.2.2:8080"; //Local host URL
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final APICallback callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);

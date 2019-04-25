@@ -14,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import org.json.JSONArray;
@@ -34,7 +35,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.UserLocation;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserLocationResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
-public class UserLocationsMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class UserLocationsMapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
     UserResponse userResponse;
@@ -144,7 +145,7 @@ public class UserLocationsMapsActivity extends FragmentActivity implements OnMap
                 googleMap.addMarker(new MarkerOptions().position(tempLoc).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(tempLoc));
         }
-        //googleMap.setOnMarkerClickListener(this);
+        googleMap.setOnMarkerClickListener(this);
 
     }
 
@@ -168,5 +169,30 @@ public class UserLocationsMapsActivity extends FragmentActivity implements OnMap
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        System.out.println("Inside onMarkerClick");
+        geocoder = new Geocoder(this, Locale.getDefault());
+        String finalAddress = "test address";
+        try {
+            addresses = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 2);
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            finalAddress=address + city + state +country + postalCode;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        System.out.println("Final address= "+finalAddress);
+
+        marker.setTitle(finalAddress);
+        marker.showInfoWindow();
+        return true;
     }
 }

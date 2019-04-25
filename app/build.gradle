@@ -25,6 +25,9 @@ android {
         noCompress "tflite"
         noCompress "lite"
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 

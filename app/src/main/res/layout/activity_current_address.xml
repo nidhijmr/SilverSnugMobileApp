@@ -16,5 +16,5 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="138dp"
         tools:layout_editor_absoluteY="264dp"
-        tools:text="hello" />
+        tools:text="Current Location" />
 </android.support.constraint.ConstraintLayout>

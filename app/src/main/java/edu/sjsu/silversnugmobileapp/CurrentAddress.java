@@ -47,8 +47,16 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_address);
         txtLoc = findViewById(R.id.textAddress);
-        if(LocationTracker.finalAddress == "")
-            txtLoc.setText(LocationTracker.address);
+        if(LocationTracker.finalAddress.isEmpty() || LocationTracker.finalAddress == ""  ) {
+            //txtLoc.setText(LocationTracker.address);
+            if(LocationTracker.address.isEmpty() || LocationTracker.address == ""  ) {
+                txtLoc.setText("175 W Tasman Dr, \n San Jose, CA 95134");
+            }
+            else
+            {
+                txtLoc.setText(LocationTracker.address);
+            }
+        }
         else
             txtLoc.setText(LocationTracker.finalAddress);
 
@@ -117,7 +125,7 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(LocationTracker.LOCATION_INTENT)) {
                 if(intent.getExtras().getString("location").equals(null) || intent.getExtras().getString("location").equals("")) {
-                     txtLoc.setText("325 E Tasman Dr, \n San Jose, CA 95134");
+                     txtLoc.setText("175 W Tasman Dr, \n San Jose, CA 95134");
                 }
                 else
                     txtLoc.setText(intent.getExtras().getString("location"));

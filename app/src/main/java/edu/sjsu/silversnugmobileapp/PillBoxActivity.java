@@ -348,39 +348,29 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-                //Set UserID
-                request.setUserId(userResponse.getUserId());
+        //Set UserID
+        request.setUserId(userResponse.getUserId());
 
-                //Call to POST REST API to save New PillBox
-                try {
-                    JSONObject jsonObject = new JSONObject(gson.toJson(request));
-                    restApiClient.executePostAPI(getApplicationContext(), "/SilverSnug/PillBox/editPill", jsonObject, new APICallback() {
-                        @Override
-                        public void onSuccess(JSONObject jsonResponse) {
-                            PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
-                            Log.i("PillBoxActivity", response.toString());
-                            loadPillBoxList();
-                        }
-
-                        @Override
-                        public void onError(String message) {
-                            Log.i("PillBoxActivity", message);
-                        }
-                    });
-
-                } catch (JSONException e) {
-                    Log.e("PillBoxActivity", e.getMessage());
+        //Call to POST REST API to save New PillBox
+        try {
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            restApiClient.executePostAPI(getApplicationContext(), "/SilverSnug/PillBox/editPill", jsonObject, new APICallback() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                    PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
+                    Log.i("PillBoxActivity", response.toString());
+                    loadPillBoxList();
                 }
 
-            }
+                @Override
+                public void onError(String message) {
+                    Log.i("PillBoxActivity", message);
+                }
+            });
+
+        } catch (JSONException e) {
+            Log.e("PillBoxActivity", e.getMessage());
         }
 
-
-
-
-
-
-
-
-
-
+    }
+}
