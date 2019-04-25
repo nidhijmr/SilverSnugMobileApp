@@ -1,6 +1,5 @@
 package edu.sjsu.silversnugmobileapp;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,9 +28,7 @@ import java.util.List;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PillBox;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.AddressBookRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PillBoxRequest;
-import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.AddressBookResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PillBoxResponse;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.utilities.RVAdapter;
@@ -50,9 +47,8 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
     private RVAdapter adapter = null;
     private RecyclerView rv;
     private EditText pillnotesEditText;
-    private List<String> labelsList = new ArrayList<>();
+    private List<String> labelsList = new ArrayList<String>();
     private PillBoxResponse response;
-    private Gson gson;
     private TextView pillTextView;
     private UserResponse userResponse;
     private List<PillBox> responseList = new ArrayList<>();
@@ -275,7 +271,6 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
                     Log.i("PillBoxActivity", message);
                 }
             });
-
         } catch (JSONException e) {
             Log.e("PillBoxActivity", e.getMessage());
         }
@@ -353,39 +348,29 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
             return;
         }
 
-                //Set UserID
-                request.setUserId(userResponse.getUserId());
+        //Set UserID
+        request.setUserId(userResponse.getUserId());
 
-                //Call to POST REST API to save New PillBox
-                try {
-                    JSONObject jsonObject = new JSONObject(gson.toJson(request));
-                    restApiClient.executePostAPI(getApplicationContext(), "/SilverSnug/PillBox/editPill", jsonObject, new APICallback() {
-                        @Override
-                        public void onSuccess(JSONObject jsonResponse) {
-                            PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
-                            Log.i("PillBoxActivity", response.toString());
-                            loadPillBoxList();
-                        }
-
-                        @Override
-                        public void onError(String message) {
-                            Log.i("PillBoxActivity", message);
-                        }
-                    });
-
-                } catch (JSONException e) {
-                    Log.e("PillBoxActivity", e.getMessage());
+        //Call to POST REST API to save New PillBox
+        try {
+            JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            restApiClient.executePostAPI(getApplicationContext(), "/SilverSnug/PillBox/editPill", jsonObject, new APICallback() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                    PillBoxResponse response = gson.fromJson(jsonResponse.toString(), PillBoxResponse.class);
+                    Log.i("PillBoxActivity", response.toString());
+                    loadPillBoxList();
                 }
 
-            }
+                @Override
+                public void onError(String message) {
+                    Log.i("PillBoxActivity", message);
+                }
+            });
+
+        } catch (JSONException e) {
+            Log.e("PillBoxActivity", e.getMessage());
         }
 
-
-
-
-
-
-
-
-
-
+    }
+}
