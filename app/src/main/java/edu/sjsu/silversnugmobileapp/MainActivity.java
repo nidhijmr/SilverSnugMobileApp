@@ -3,6 +3,7 @@ package edu.sjsu.silversnugmobileapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,9 @@ import android.hardware.SensorManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 import edu.sjsu.silversnugmobileapp.backgroundTasks.panicVoiceDetection;
 
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     boolean callFlag=true;
     GPSLocation gps;
     String user_name;
+    Button emergencyDial,police;
 
 
 
@@ -52,6 +59,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Bundle b =  i.getExtras();
         userResponse =  (UserResponse)b.get("userResponse");
         Log.i("userResponse: ", userResponse.toString());
+
+        emergencyDial=(Button) findViewById(R.id.emergencydial);
+        police= (Button) findViewById(R.id.police);
+
+        emergencyDial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emergencyCall();
+            }
+        });
+        police.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                policeCall();
+            }
+        });
 
         if(userResponse != null && userResponse.getRole().equals("patient")) {
            // Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
@@ -215,6 +238,52 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         intent.putExtra("userResponse", userResponse);
         MainActivity.this.startActivity(intent);
     }
-    
+
+    public void emergencyCall()
+    {
+
+        gps = new GPSLocation(MainActivity.this);
+       // Intent intent = new Intent(MainActivity.this, EmergencyCall.class);
+        Intent intent = new Intent();
+        if (gps.GetLocation()) {
+            address = gps.getAddress();
+            intent.putExtra("address", address);
+            intent.putExtra("userId",userResponse.getUserId() );
+        }
+        intent.setClass(this, EmergencyCall.class);
+        startActivity(intent);
+        //MainActivity.this.startActivity(intent);
+    }
+
+    public void policeCall()
+    {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        String concatTel = "tel:" + "411";
+
+        Intent callIntent1 = new Intent(Intent.ACTION_CALL);
+        callIntent1.setData(Uri.parse(concatTel));
+        AudioManager audioManager = (AudioManager)this. getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMode(AudioManager.MODE_IN_CALL);
+        audioManager.setBluetoothScoOn(false);
+        audioManager.setSpeakerphoneOn(true);
+        System.out.println("CAll activity – Start");
+        startActivity(callIntent1);
+        System.out.println("CAll activity – End");
+        finish();
+
+    }
+
+
+
 }
 
