@@ -323,7 +323,14 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
         final PillBoxRequest request = new PillBoxRequest();
 
         request.setPillBoxId(pillBoxId);
-
+        /*if(!(pillnameEditText.getText().equals(null)))
+            request.setMedicineName(pillnameEditText.getText().toString().trim());
+        else {
+            Toast.makeText(getApplicationContext(), "Address Name cannot be empty", Toast.LENGTH_LONG).show();
+            Log.e("AddressBookActivity", "Address Name cannot be empty");
+            return;
+        }
+*/
         if(!(pilldosageEditText.getText().equals(null)))
             request.setDosage(pilldosageEditText.getText().toString().trim());
         else {

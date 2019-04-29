@@ -45,6 +45,7 @@ public class CurrentAddress extends AppCompatActivity implements GoogleApiClient
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Current Address");
         setContentView(R.layout.activity_current_address);
         txtLoc = findViewById(R.id.textAddress);
         if(LocationTracker.finalAddress.isEmpty() || LocationTracker.finalAddress == ""  ) {

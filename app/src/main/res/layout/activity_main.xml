@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#E57373"
                     android:layout_marginTop="10dp"
-                    android:text="Photo Album"
+                    android:text="Photo Directory"
 
                     android:textStyle="bold" />
 

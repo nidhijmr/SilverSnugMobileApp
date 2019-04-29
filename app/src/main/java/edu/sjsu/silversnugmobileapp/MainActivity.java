@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         if(userResponse != null && userResponse.getRole().equals("patient")) {
-           // Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
-           // panicVcDetect.putExtra("userName", userResponse.getUserName());
-           // getApplicationContext().startService(panicVcDetect);
-            //user_name = i.getStringExtra("userName");
+           Intent panicVcDetect = new Intent(MainActivity.this, panicVoiceDetection.class);
+         panicVcDetect.putExtra("userName", userResponse.getUserName());
+            getApplicationContext().startService(panicVcDetect);
+            user_name = i.getStringExtra("userName");
 
             Intent intent = new Intent(MainActivity.this, LocationTracker.class);
             intent.putExtra("userName", userResponse.getUserName());
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void goToPhotoAlbum(View view) {
       Intent intent = new Intent(MainActivity.this, PhotoAlbumActivity.class);
-     // intent.putExtra("userResponse", userResponse);
+      //intent.putExtra("userResponse", userResponse);
         intent.putExtra("userId", userResponse.getUserId());
       MainActivity.this.startActivity(intent);
     }
