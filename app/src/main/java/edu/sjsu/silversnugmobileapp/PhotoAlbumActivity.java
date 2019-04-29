@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.GridView;
 import com.google.gson.Gson;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,20 +21,26 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
     private GridView imageGridview;
     private int columnWidth = 500;
     String userId;
+    private UserResponse userResponse;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_album);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
         insert = (CardView) findViewById(R.id.add_picture);
         get = (CardView) findViewById(R.id.display_pictures);
         insert.setOnClickListener(this);
         get.setOnClickListener((View.OnClickListener) this);
         userId= getIntent().getStringExtra("userId");
+        /*Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        userId= userResponse.getUserId();*/
+
 
         /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,4 +72,13 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
+    /*@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(PhotoAlbumActivity.this, MainActivity.class);
+        //intent.putExtra("userResponse", userResponse);
+        // intent.putExtra("userId", userResponse.getUserId());
+        PhotoAlbumActivity.this.startActivity(intent);
+    }*/
 }

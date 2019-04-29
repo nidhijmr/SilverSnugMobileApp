@@ -289,4 +289,12 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(InsertImageActivity.this, PhotoAlbumActivity.class);
+        intent.putExtra("userId", userId);
+        InsertImageActivity.this.startActivity(intent);
+    }
 }
