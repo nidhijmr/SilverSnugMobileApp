@@ -234,7 +234,6 @@
             android:layout_width="86dp"
             android:layout_height="76dp"
             android:layout_gravity="bottom|end"
-
             android:background="@drawable/icon"
             android:textColor="#E57373"
             android:textSize="24dp" />

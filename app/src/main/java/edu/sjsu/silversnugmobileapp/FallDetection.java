@@ -22,7 +22,7 @@ public class FallDetection extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fall_detection);
-       // address = getIntent().getStringExtra("address");
+        address = getIntent().getStringExtra("address");
         userId = getIntent().getStringExtra("userId");
         System.out.println("UserId= "+ userId+ " inside Fall Detection");
         yesButton = (Button) findViewById(R.id.yes);
@@ -60,7 +60,7 @@ public class FallDetection extends AppCompatActivity implements View.OnClickList
         System.out.println("Before calling Emergencycall");
         Intent callIntent= new Intent(FallDetection.this, EmergencyCall.class);
         callIntent.putExtra("userId", userId);
-        //callIntent.putExtra("address", address);
+        callIntent.putExtra("address", address);
         System.out.println("Calling emergency phone + SMS");
         startActivity(callIntent);
         System.out.println("returned from emergeny cal");

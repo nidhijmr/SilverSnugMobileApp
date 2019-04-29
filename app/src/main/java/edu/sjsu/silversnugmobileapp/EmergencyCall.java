@@ -33,10 +33,10 @@ public class EmergencyCall extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   address = getIntent().getExtras().getString("address");
+        address = getIntent().getExtras().getString("address");
         userId = getIntent().getExtras().getString("userId");
         System.out.println("UserId " + userId + " inside Emergency call");
-        message = "Emergency! I may need help!!."; // My location: " + address;
+        message = "Emergency! I may need help!!." +" My location: " + address;
 
         System.out.println("inside emergency call: on create");
 
