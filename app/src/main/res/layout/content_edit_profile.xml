@@ -44,8 +44,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="164dp"
-        android:text="Emergency Number"
+        android:layout_marginTop="160dp"
+        android:text="Emergency \n Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,13 +53,13 @@
         android:id="@+id/firstNameEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="228dp"
         android:fontFamily="sans-serif-medium"
+        android:text="First Name"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:textColor="@color/colorAccent"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="208dp"
-        android:text="First Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,13 +67,13 @@
         android:id="@+id/lastNameEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="268dp"
         android:fontFamily="sans-serif-medium"
+        android:text="Last Name"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:textColor="@color/colorAccent"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="256dp"
-        android:text="Last Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,36 +100,36 @@
         android:textStyle="italic"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="360dp"
-        android:text="Phone Number"
+        android:layout_marginTop="354dp"
+        android:text="PhoneNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/profileImageEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:layout_marginStart="48dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="412dp"
-        android:text="Profile Image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+    <!--android:id="@+id/profileImageEdit"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:fontFamily="sans-serif-medium"-->
+    <!--android:textSize="20sp"-->
+    <!--android:textStyle="italic"-->
+    <!--android:layout_marginStart="48dp"-->
+    <!--android:textColor="@color/colorAccent"-->
+    <!--android:layout_marginTop="412dp"-->
+    <!--android:text="Profile Image"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/roleEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="400dp"
         android:fontFamily="sans-serif-medium"
+        android:text="Role"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="italic"
-        android:layout_marginStart="48dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="464dp"
-        android:text="Role"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,13 +137,12 @@
         android:id="@+id/txtuserNameProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:textColor="@color/colorAccent"
         android:layout_marginStart="216dp"
         android:layout_marginTop="72dp"
+        android:fontFamily="sans-serif-medium"
         android:text=""
+        android:textColor="@color/colorAccent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,13 +150,11 @@
         android:id="@+id/txtemailIdProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
-        android:textStyle="italic"
         android:layout_marginStart="216dp"
-        android:textColor="@color/colorAccent"
         android:layout_marginTop="112dp"
+        android:fontFamily="sans-serif-medium"
         android:text=""
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,8 +162,8 @@
         android:id="@+id/txtemergencyContactNumberProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="160dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -175,8 +172,8 @@
         android:id="@+id/txtfirstNameProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="214dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -185,8 +182,8 @@
         android:id="@+id/txtlastNameProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="250dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -195,8 +192,8 @@
         android:id="@+id/txtpasswordProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="292dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -205,29 +202,29 @@
         android:id="@+id/txtphoneNumberProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="352dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="340dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtprofileImageProfileEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="412dp"
-        android:textColor="@color/colorAccent"
-        android:text="profileImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+    <!--android:id="@+id/txtprofileImageProfileEdit"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginStart="216dp"-->
+    <!--android:layout_marginTop="412dp"-->
+    <!--android:textColor="@color/colorAccent"-->
+    <!--android:text="profileImage"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/txtroleProfileEdit"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="400dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -236,25 +233,25 @@
         android:id="@+id/Save"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="460dp"
         android:background="@color/colorPrimary"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="548dp"
-        android:text="Save"
         android:onClick="saveUserProfile"
+        android:text="Save"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Cancel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:layout_height="48dp"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="460dp"
         android:background="@color/colorPrimary"
-        android:layout_marginStart="208dp"
-        android:layout_marginTop="548dp"
         android:onClick="cancelEdit"
         android:text="Cancel"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
