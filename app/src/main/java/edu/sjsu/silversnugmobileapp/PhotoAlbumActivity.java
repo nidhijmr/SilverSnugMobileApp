@@ -28,29 +28,12 @@ public class PhotoAlbumActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_album);
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
+        getSupportActionBar().setTitle(" Photo Directory");
         insert = (CardView) findViewById(R.id.add_picture);
         get = (CardView) findViewById(R.id.display_pictures);
         insert.setOnClickListener(this);
         get.setOnClickListener((View.OnClickListener) this);
         userId= getIntent().getStringExtra("userId");
-        /*Intent i = getIntent();
-        Bundle b =  i.getExtras();
-        userResponse =  (UserResponse)b.get("userResponse");
-        userId= userResponse.getUserId();*/
-
-
-        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        }); */
-
         get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

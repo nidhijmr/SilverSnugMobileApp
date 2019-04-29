@@ -81,8 +81,7 @@
             android:label="MainActivity" />
         <activity
             android:name=".PhotoAlbumActivity"
-            android:label="@string/title_activity_photo_album"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_photo_album" />
         <activity
             android:name=".PillBoxActivity"
             android:label="@string/title_activity_pill_box"
