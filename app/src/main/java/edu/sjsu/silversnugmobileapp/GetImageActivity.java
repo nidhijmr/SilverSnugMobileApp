@@ -2,6 +2,7 @@ package edu.sjsu.silversnugmobileapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -114,4 +115,11 @@ public class GetImageActivity extends AppCompatActivity {
         loadPhotoGallery();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(GetImageActivity.this, PhotoAlbumActivity.class);
+        intent.putExtra("userId", userId);
+        GetImageActivity.this.startActivity(intent);
+    }
 }
