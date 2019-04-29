@@ -286,9 +286,14 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
+        pillnameEditText=new EditText(this);
         pilldosageEditText = new EditText(this);
         pillpotencyEditText = new EditText(this);
         pillnotesEditText = new EditText(this);
+
+        pillnameEditText.setHint("Pill Name");
+        pillnameEditText.setText(pillToEdit.getMedicineName());
+        layout.addView(pillnameEditText);
 
 
         pilldosageEditText.setHint("Pill Dosage");
@@ -323,14 +328,13 @@ public class PillBoxActivity extends AppCompatActivity implements UIListner {
         final PillBoxRequest request = new PillBoxRequest();
 
         request.setPillBoxId(pillBoxId);
-        /*if(!(pillnameEditText.getText().equals(null)))
+        if(!(pillnameEditText.getText().equals(null)))
             request.setMedicineName(pillnameEditText.getText().toString().trim());
         else {
             Toast.makeText(getApplicationContext(), "Address Name cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("AddressBookActivity", "Address Name cannot be empty");
             return;
         }
-*/
         if(!(pilldosageEditText.getText().equals(null)))
             request.setDosage(pilldosageEditText.getText().toString().trim());
         else {
