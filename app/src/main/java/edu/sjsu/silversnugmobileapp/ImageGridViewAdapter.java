@@ -37,6 +37,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.DeletePhotoRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 import static android.content.Context.AUDIO_SERVICE;
 
@@ -52,17 +53,18 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
     String phoneNumber, photoName;
     ListView list;
     String userId;
+    private UserResponse userResponse;
 
     private RestClient restClient;
     private Gson gson;
     private GetImageActivity getImageActivity;
 
 
-    public ImageGridViewAdapter(Context c, int layout, ArrayList<ImageDetails> imgList, String userId) {
+    public ImageGridViewAdapter(Context c, int layout, ArrayList<ImageDetails> imgList, UserResponse userResponse ) {
         this.mContext = c;
         this.layout = layout;
         this.imageList = imgList;
-        this.userId= userId;
+        this.userResponse= userResponse;
     }
 
     public int getCount() {
@@ -152,7 +154,7 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
                                 String photoName= photoSelectedToEdit.getName();
 
                                 Intent intent = new Intent(mContext, EditPhoto.class);
-                                intent.putExtra("userId", userId);
+                                intent.putExtra("userResponse", userResponse);
                                 intent.putExtra("photoName", photoName);
                                 mContext.startActivity(intent);
                                 //mContext.startActivity(new Intent(mContext, EditPhoto.class));
