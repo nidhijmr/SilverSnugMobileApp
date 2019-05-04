@@ -14,10 +14,14 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.EditPhotoRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class EditPhoto extends AppCompatActivity {
 
@@ -26,8 +30,9 @@ public class EditPhoto extends AppCompatActivity {
 
     private Gson gson;
     private RestClient restClient;
-
+    private String phone;
     String userId, photoName;
+    private UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +46,33 @@ public class EditPhoto extends AppCompatActivity {
         restClient = new RestClient();
         gson = new Gson();
 
-        userId= getIntent().getStringExtra("userId");
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
+        userId= userResponse.getUserId();
+
+        // userId= getIntent().getStringExtra("userId");
         photoName=getIntent().getStringExtra("photoName");
 
         save.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                saveContactNumber();
+                //phone number validation
+
+                phone = contactNumberEditText.getText().toString();
+                String expression = "^[+]?[0-9]{11,13}$";
+                CharSequence inputString = phone;
+                Pattern pattern = Pattern.compile(expression);
+                Matcher matcher = pattern.matcher(inputString);
+                if (!matcher.matches()) {
+                    Toast.makeText(getApplicationContext(), "Not a valid phone number", Toast.LENGTH_LONG).show();
+                }
+                else {
+
+                    saveContactNumber();
+                }
             }
         });
 
@@ -57,7 +81,7 @@ public class EditPhoto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent getImageIntent = new Intent(EditPhoto.this, GetImageActivity.class);
-                getImageIntent.putExtra("userId", userId);
+                getImageIntent.putExtra("userResponse", userResponse);
                 startActivity(getImageIntent);
             }
         });
@@ -92,7 +116,7 @@ public class EditPhoto extends AppCompatActivity {
                     Log.i("EditPhotoActivity", response.toString());
                     Toast.makeText(getApplicationContext(), "Contact Number saved successfully!", Toast.LENGTH_LONG).show();
                     Intent getImageIntent = new Intent(EditPhoto.this, GetImageActivity.class);
-                    getImageIntent.putExtra("userId", userId);
+                    getImageIntent.putExtra("userResponse", userResponse);
                     startActivity(getImageIntent);
 
                 }

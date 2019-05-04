@@ -42,11 +42,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.APICallback;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class InsertImageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,6 +68,8 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
     ImageView mImage;
     String imagePath;
     TransferUtility transferUtility;
+    private UserResponse userResponse;
+    private String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +83,34 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
         choosePic.setOnClickListener(this);
         restApiClient = new RestClient();
         gson = new Gson();
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPhoto();
+
+                //phone number validation
+
+                phone = econtactNumber.getText().toString();
+                String expression = "^[+]?[0-9]{10,13}$";
+                CharSequence inputString = phone;
+                Pattern pattern = Pattern.compile(expression);
+                Matcher matcher = pattern.matcher(inputString);
+                if (!matcher.matches()) {
+                    Toast.makeText(getApplicationContext(), "Not a valid phone number", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    addPhoto();
+                }
             }
         });
-        userId= getIntent().getStringExtra("userId");
+
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
+        userId= userResponse.getUserId();
+
+       // userId= getIntent().getStringExtra("userId");
     }
 
     @Override
@@ -128,7 +154,9 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (!(econtactNumber.getText().equals(null))) {
-            request.setContactNumber(econtactNumber.getText().toString());
+
+                request.setContactNumber(econtactNumber.getText().toString());
+
         } else {
             Toast.makeText(getApplicationContext(), "Contact Number cannot be empty", Toast.LENGTH_LONG).show();
             Log.e("PhotoGalleryActivity", "Contact Number cannot be empty");
@@ -153,15 +181,17 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
                 public void onSuccess(JSONObject jsonResponse) {
                     PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                     Log.i("PhotoGalleryActivity", response.toString());
+                    System.out.println("Photo inserted successfully");
                     Toast.makeText(getApplicationContext(), "Photo added to gallery successfully!", Toast.LENGTH_LONG).show();
                     Intent getImageIntent = new Intent(InsertImageActivity.this, GetImageActivity.class);
-                    getImageIntent.putExtra("userId", userId);
-                    startActivity(getImageIntent);
+                    getImageIntent.putExtra("userResponse", userResponse);
+                    InsertImageActivity.this.startActivity(getImageIntent);
                 }
 
                 @Override
                 public void onError(String message) {
                     Log.i("PhotoGalleryActivity", message);
+                    System.out.println("failed to insert photo");
                 }
             });
 
@@ -294,7 +324,8 @@ public class InsertImageActivity extends AppCompatActivity implements View.OnCli
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(InsertImageActivity.this, PhotoAlbumActivity.class);
-        intent.putExtra("userId", userId);
+        intent.putExtra("userResponse", userResponse);
+       // intent.putExtra("userId", userId);
         InsertImageActivity.this.startActivity(intent);
     }
 }

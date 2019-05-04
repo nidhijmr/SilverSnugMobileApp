@@ -37,6 +37,7 @@ import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyClient.RestClient;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyModel.PhotoGallery;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyRequest.PhotoGalleryRequest;
 import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.PhotoGalleryResponse;
+import edu.sjsu.silversnugmobileapp.VolleyAPI.VolleyResponse.UserResponse;
 
 public class GetImageActivity extends AppCompatActivity {
 
@@ -49,6 +50,7 @@ public class GetImageActivity extends AppCompatActivity {
     String userId;
     ImageView imageView;
     private static final String Key = "photos";
+    private UserResponse userResponse;
 
     Context ctx;
     private RestClient restClient;
@@ -60,10 +62,16 @@ public class GetImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_image);
         imageGridview =(GridView) findViewById(R.id.my_grid_view);
         imageDetails = new ArrayList<>();
-        userId=getIntent().getExtras().getString("userId");
+       // userId=getIntent().getExtras().getString("userId");
         ctx = this;
         restClient = new RestClient();
         gson = new Gson();
+
+        Intent i = getIntent();
+        Bundle b =  i.getExtras();
+        userResponse =  (UserResponse)b.get("userResponse");
+        Log.i("userResponse: ", userResponse.toString());
+        userId= userResponse.getUserId();
 
         loadPhotoGallery();
     }
@@ -92,7 +100,7 @@ public class GetImageActivity extends AppCompatActivity {
                     imageDetails.add(new ImageDetails(name,contactNumber,relationship,imagePath));
                 }
                 //adapter.notifyDataSetChanged();
-                adapter = new ImageGridViewAdapter(ctx,R.layout.image_items, imageDetails, userId);
+                adapter = new ImageGridViewAdapter(ctx,R.layout.image_items, imageDetails, userResponse);
                 imageGridview.setAdapter(adapter);
 
             }
@@ -119,7 +127,8 @@ public class GetImageActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(GetImageActivity.this, PhotoAlbumActivity.class);
-        intent.putExtra("userId", userId);
+       // intent.putExtra("userId", userId);
+        intent.putExtra("userResponse", userResponse);
         GetImageActivity.this.startActivity(intent);
     }
 }
