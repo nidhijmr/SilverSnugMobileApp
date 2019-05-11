@@ -224,6 +224,7 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
         String url = "/SilverSnug/PhotoGallery/deletePhoto";
         final DeletePhotoRequest request = new DeletePhotoRequest();
         request.setPhotoName(photoName);
+        //get userId
         request.setUserId(userResponse.getUserId());
         //PhotoGalleryRequest request = new PhotoGalleryRequest();
         try{
