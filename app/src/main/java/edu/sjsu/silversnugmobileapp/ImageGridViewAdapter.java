@@ -224,10 +224,11 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
         String url = "/SilverSnug/PhotoGallery/deletePhoto";
         final DeletePhotoRequest request = new DeletePhotoRequest();
         request.setPhotoName(photoName);
-        request.setUserId(userId);
+        request.setUserId(userResponse.getUserId());
         //PhotoGalleryRequest request = new PhotoGalleryRequest();
         try{
             JSONObject jsonObject = new JSONObject(gson.toJson(request));
+            System.out.println("jsonObject" + jsonObject.toString());
             restClient.executePostAPI(mContext, url, jsonObject, new APICallback() {
                 @Override
                 public void onSuccess(JSONObject jsonResponse) {
@@ -235,8 +236,9 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
                     PhotoGalleryResponse response = gson.fromJson(jsonResponse.toString(), PhotoGalleryResponse.class);
                     Log.i("PhotoGalleryActivity", response.toString());
                     Toast.makeText(mContext, "Photo deleted successfully!", Toast.LENGTH_LONG).show();
-                     getImageActivity = new GetImageActivity();
+                    getImageActivity = new GetImageActivity();
                     ((GetImageActivity)mContext).loadPhotoGallery();
+
                 }
 
                 @Override
@@ -246,7 +248,7 @@ public class ImageGridViewAdapter extends BaseAdapter implements View.OnClickLis
             });
 
         } catch (JSONException e) {
-            String err = (e.getMessage()==null)?"Pill deletion failed":e.getMessage();
+            String err = (e.getMessage()==null)?"Photo deletion failed":e.getMessage();
             Log.e("PhotoGalleryActivity", err);
         }
     }
